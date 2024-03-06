@@ -1,8 +1,9 @@
-import React, { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "../public/vite.svg";
+import React from "react";
 import "./App.css";
+import HomePage from "./components/HomePage";
 
-function App() {}
+function App() {
+   return <HomePage />;
+}
 
 export default App;
