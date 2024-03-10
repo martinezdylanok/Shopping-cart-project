@@ -3,25 +3,47 @@ import { render } from "@testing-library/react";
 import React from "react";
 import HomePage from "../components/HomePage";
 
-describe("HomePage", () => {
-   test("checks if the homepage component was rendered", () => {
+describe("Header element", () => {
+   test("renders header with correct title", () => {
       const { getByText } = render(<HomePage />);
-      const header = getByText(/Shopping Web/i);
-      expect(header).toBeInTheDocument();
+      const title = getByText("Bob's Bizarre Bazaar");
+      expect(title).toBeInTheDocument();
    });
 
-   test("checks if the header child element was rendered", () => {
-      const { container } = render(<HomePage />);
-      const header = container.querySelector("header");
-      expect(header).toBeInTheDocument();
+   test("header contains navigation buttons", () => {
+      const { getByRole } = render(<HomePage />);
+      const toggleMenuButton = getByRole("button", { name: /toggle menu/i });
+      const shoppingCartButton = getByRole("button", { name: /shopping cart/i });
+      expect(toggleMenuButton).toBeInTheDocument();
+      expect(shoppingCartButton).toBeInTheDocument();
    });
 
-   test("checks if the h1 text is correct", () => {
-      const { getByText } = render(<HomePage />);
-      const h1 = getByText(/Shopping Web/i);
-      expect(h1.textContent).toBe("Shopping Web");
+   test("navigation buttons have correct accessibility attributes", () => {
+      const { getByLabelText } = render(<HomePage />);
+      const toggleMenuButton = getByLabelText("Toggle Menu");
+      const shoppingCartButton = getByLabelText("Shopping Cart");
+      expect(toggleMenuButton).toBeInTheDocument();
+      expect(shoppingCartButton).toBeInTheDocument();
    });
 
+   test("navigation buttons contain icons", () => {
+      const { getByAltText } = render(<HomePage />);
+      const hamburgerMenuIcon = getByAltText("hamburger-menu-icon");
+      const cartIcon = getByAltText("cart-icon");
+      expect(hamburgerMenuIcon).toBeInTheDocument();
+      expect(cartIcon).toBeInTheDocument();
+   });
+
+   test("navigation buttons have correct styling", () => {
+      const { getByLabelText } = render(<HomePage />);
+      const toggleMenuButton = getByLabelText("Toggle Menu");
+      const shoppingCartButton = getByLabelText("Shopping Cart");
+      expect(toggleMenuButton).toHaveClass("hamburger-button");
+      expect(shoppingCartButton).toHaveClass("cart-button");
+   });
+});
+
+describe("Main Component", () => {
    test("checks if the main element was rendered", () => {
       const { container } = render(<HomePage />);
       const main = container.querySelector("main");
