@@ -1,11 +1,20 @@
 import React from "react";
 import ShoppingCartSvg from "../assets/shopping_cart_FILL0_wght400_GRAD0_opsz24.svg";
+import HamburgerMenuSvg from "../assets/menu_FILL0_wght400_GRAD0_opsz24.svg";
 
 export default function HomePage() {
    return (
       <>
-         <header>
-            <h1 className="font-sans text-7xl font-bold text-slate-600">Shopping Web</h1>
+         <header className="flex justify-between items-center">
+            <h1 className="font-semibold text-[1.4em] text-[#52489c]">Bob's Bizarre Bazaar</h1>
+            <nav className="buttons-container flex items-center gap-1" aria-label="Primary Navigation">
+               <button type="button" aria-label="Toggle Menu" className="hamburger-button flex items-center justify-center size-9 border-2 border-[#f45b69]">
+                  <img className="size-6" src={HamburgerMenuSvg} alt="hamburger-menu-icon" />
+               </button>
+               <button type="button" aria-label="Shopping Cart" className="cart-button flex items-center justify-center size-9 border-2 border-[#4062bb]">
+                  <img className="size-6" src={ShoppingCartSvg} alt="cart-icon" />
+               </button>
+            </nav>
          </header>
          <main className="flex flex-col">
             <div className="interactive-buttons flex justify-between items-center">
