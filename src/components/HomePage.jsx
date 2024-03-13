@@ -1,21 +1,62 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ShoppingCartSvg from "../assets/shopping_cart_FILL0_wght400_GRAD0_opsz24.svg";
 import HamburgerMenuSvg from "../assets/menu_FILL0_wght400_GRAD0_opsz24.svg";
 
 export default function HomePage() {
+   const [showToggleMenu, setShowToggleMenu] = useState(false);
+
+   useEffect(() => {
+      const handleResize = () => {
+         if (window.innerWidth < 1024) {
+            setShowToggleMenu(true);
+         } else {
+            setShowToggleMenu(false);
+         }
+      };
+      handleResize();
+      window.addEventListener("resize", handleResize);
+      return () => {
+         window.removeEventListener("resize", handleResize);
+      };
+   }, []);
+
    return (
       <>
-         <header className="flex justify-between items-center">
-            <h1 className="font-semibold text-[1.4em] text-[#52489c]">Bob's Bizarre Bazaar</h1>
-            <nav className="buttons-container flex items-center gap-1" aria-label="Primary Navigation">
-               <button type="button" aria-label="Toggle Menu" className="hamburger-button flex items-center justify-center size-9 border-2 border-[#f45b69]">
-                  <img className="size-6" src={HamburgerMenuSvg} alt="hamburger-menu-icon" />
-               </button>
-               <button type="button" aria-label="Shopping Cart" className="cart-button flex items-center justify-center size-9 border-2 border-[#4062bb]">
-                  <img className="size-6" src={ShoppingCartSvg} alt="cart-icon" />
-               </button>
-            </nav>
-         </header>
+         {showToggleMenu && (
+            <header className="flex justify-between items-center">
+               <h1 className="font-semibold text-[1.4em] sm:text-2xl md:text-3xl lg: text-[#52489c]">Bob's Bizarre Bazaar</h1>
+               <nav className="buttons-container flex items-center gap-1 sm:gap-2 md:gap-3 lg:gap-4" aria-label="Primary Navigation">
+                  <button type="button" aria-label="Toggle Menu" className="hamburger-button flex items-center justify-center size-9 border-2 border-[#f45b69]">
+                     <img className="size-6" src={HamburgerMenuSvg} alt="hamburger-menu-icon" />
+                  </button>
+                  <button type="button" aria-label="Shopping Cart" className="cart-button flex items-center justify-center size-9 border-2 border-[#4062bb]">
+                     <img className="size-6" src={ShoppingCartSvg} alt="cart-icon" />
+                  </button>
+               </nav>
+            </header>
+         )}
+         {!showToggleMenu && (
+            <header className="">
+               <nav className="menu-items-container flex justify-evenly items-end" aria-label="Primary Navigation">
+                  <a href="#" className="lg:text-xl xl:text-2xl text-gray-700 hover:text-[#f45b69]">
+                     Home
+                  </a>
+                  <a href="#" className="lg:text-xl xl:text-2xl text-gray-700 hover:text-[#f45b69]">
+                     Products
+                  </a>
+                  <h1 className="font-semibold lg:text-5xl xl:text-7xl text-[#52489c]">Bob's Bizarre Bazaar</h1>
+                  <a href="#" className="lg:text-xl xl:text-2xl text-gray-700 hover:text-[#f45b69]">
+                     About
+                  </a>
+                  <a href="#" className="lg:text-xl xl:text-2xl text-gray-700 hover:text-[#f45b69]">
+                     Contact
+                  </a>
+                  <button type="button" aria-label="Shopping Cart" className="cart-button flex items-center justify-center size-9 border-2 border-[#4062bb]">
+                     <img className="size-6" src={ShoppingCartSvg} alt="cart-icon" />
+                  </button>
+               </nav>
+            </header>
+         )}{" "}
          <main className="flex flex-col">
             <div className="interactive-buttons flex justify-between items-center">
                <button type="button" className="current-page-button rounded-full bg-slate-600 size-20">
