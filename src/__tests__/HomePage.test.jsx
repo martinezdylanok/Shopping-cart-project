@@ -54,6 +54,26 @@ describe("Header element", () => {
    });
 });
 
+describe("Hero element", () => {
+   test("renders hero element", () => {
+      const { getByText } = render(<HomePage />);
+      const hero = getByText("Welcome to the Emporium of Extravagant Eccentricities!");
+      expect(hero).toBeInTheDocument();
+   });
+
+   test("renders hero content", () => {
+      const { getByText } = render(<HomePage />);
+      const heroContent = getByText("Gather 'round, seekers of splendid sensations and purveyors of peculiarity!");
+      expect(heroContent).toBeInTheDocument();
+   });
+
+   test("renders shop now button", () => {
+      const { getByRole } = render(<HomePage />);
+      const shopNowButton = getByRole("button", { name: /shop now/i });
+      expect(shopNowButton).toBeInTheDocument();
+   });
+});
+
 describe("Main Component", () => {
    test("checks if the main element was rendered", () => {
       const { container } = render(<HomePage />);
