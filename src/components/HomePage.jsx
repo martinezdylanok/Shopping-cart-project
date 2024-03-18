@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ShoppingCartSvg from "../assets/shopping_cart_FILL0_wght400_GRAD0_opsz24.svg";
 import HamburgerMenuSvg from "../assets/menu_FILL0_wght400_GRAD0_opsz24.svg";
+import BackgroundHeroImage from "../assets/malvestida-u79wy47kvVs-unsplash.jpg";
 
 export default function HomePage() {
    const [showToggleMenu, setShowToggleMenu] = useState(false);
@@ -56,7 +57,16 @@ export default function HomePage() {
                   </button>
                </nav>
             </header>
-         )}{" "}
+         )}
+         <section className="hero-container bg-cover bg-center my-5 sm:my-8 sm:-mx-8 lg:my-16 xl:my-14" style={{ backgroundImage: `url(${BackgroundHeroImage})` }}>
+            <div className="hero-wrapper p-5 flex flex-col justify-center items-center gap-10 bg-gradient-to-r bg-[#52489c6f] sm:p-14 sm:gap-16 lg:p-32 xl:p-52">
+               <h1 className="text-xl font-bold text-white sm:text-3xl lg:text-4xl">Welcome to the Emporium of Extravagant Eccentricities!</h1>
+               <p className="text-justify text-white sm:text-xl sm:px-20">Gather 'round, seekers of splendid sensations and purveyors of peculiarity!</p>
+               <button type="button" className=" bg-[#f45b69] text-white font-bold py-2 px-4 hover:bg-[#52489c] hover:transition duration-500 ease-in-out sm:py-4 sm:px-8">
+                  <p className="text-xl font-light sm:font-semibold">SHOP NOW</p>
+               </button>
+            </div>
+         </section>
          <main className="flex flex-col">
             <div className="interactive-buttons flex justify-between items-center">
                <button type="button" className="current-page-button rounded-full bg-slate-600 size-20">
