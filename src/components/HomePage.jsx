@@ -2,6 +2,10 @@ import React, { useState, useEffect } from "react";
 import ShoppingCartSvg from "../assets/shopping_cart_FILL0_wght400_GRAD0_opsz24.svg";
 import HamburgerMenuSvg from "../assets/menu_FILL0_wght400_GRAD0_opsz24.svg";
 import BackgroundHeroImage from "../assets/malvestida-u79wy47kvVs-unsplash.jpg";
+import LeatherBackpack from "../assets/alvaro-serrano-pFLNV4gkXsc-unsplash.jpg";
+import HeadPhones from "../assets/c-d-x-PDX_a_82obo-unsplash.jpg";
+import CocaCola from "../assets/daria-nepriakhina-Av-esLsvDvs-unsplash.jpg";
+import MakeUp from "../assets/nataliya-melnychuk-PdzMmdHqN2c-unsplash.jpg";
 
 export default function HomePage() {
    const [showToggleMenu, setShowToggleMenu] = useState(false);
@@ -58,7 +62,7 @@ export default function HomePage() {
                </nav>
             </header>
          )}
-         <section className="hero-container bg-cover bg-center my-5 sm:my-8 sm:-mx-8 lg:my-16 xl:my-14" style={{ backgroundImage: `url(${BackgroundHeroImage})` }}>
+         <section className="hero-container bg-cover bg-center mt-5 sm:mt-8 sm:-mx-8 lg:mt-16 xl:mt-14" style={{ backgroundImage: `url(${BackgroundHeroImage})` }}>
             <div className="hero-wrapper p-5 flex flex-col justify-center items-center gap-10 bg-gradient-to-r bg-[#52489c6f] sm:p-14 sm:gap-16 lg:p-32 xl:p-52">
                <h1 className="text-xl font-bold text-white sm:text-3xl lg:text-4xl">Welcome to the Emporium of Extravagant Eccentricities!</h1>
                <p className="text-justify text-white sm:text-xl sm:px-20">Gather 'round, seekers of splendid sensations and purveyors of peculiarity!</p>
@@ -67,15 +71,29 @@ export default function HomePage() {
                </button>
             </div>
          </section>
-         <main className="flex flex-col">
-            <div className="interactive-buttons flex justify-between items-center">
-               <button type="button" className="current-page-button rounded-full bg-slate-600 size-20">
-                  <p className="text-4xl text-stone-50">CP</p>
-               </button>
-               <button type="button" className="shopping-cart-button flex justify-center items-center rounded-full bg-slate-600 size-20">
-                  <img src={ShoppingCartSvg} alt="shop-cart-icon" className="w-20 h-10" />
-               </button>
-            </div>
+         <main className="flex flex-col mt-20 sm:mt-40 lg:mt-60">
+            <section className="products-container">
+               <div className="products-grid grid grid-rows-3 grid-cols-3 gap-5 sm:gap-16 lg:gap-24">
+                  <span className="row-start-1 row-end-2 col-start-1 col-end-2 flex justify-center items-center text-xl sm:text-2xl lg:text-3xl font-semibold bg-[#52489c] hover:bg-[#f45b69] hover:transition duration-500 ease-in-out">BUY</span>
+                  <div className="product-card  row-start-1 row-end-2 col-start-2 col-end-3 flex justify-center items-center">
+                     <img className="size-16 sm:size-24 lg:size-32 rounded-full object-cover" src={LeatherBackpack} alt="Leather Backpack" />
+                  </div>
+                  <div className="product-card row-start-2 row-end-3 col-start-1 col-end-2 flex justify-center items-center">
+                     <img className="size-16 sm:size-24 lg:size-32 rounded-full object-cover" src={HeadPhones} alt="Headphones" />
+                  </div>
+                  <span className="row-start-2 row-end-3 col-start-2 col-end-3 flex justify-center items-center text-xl sm:text-2xl lg:text-3xl font-semibold">THEM</span>
+                  <div className="product-card row-start-2 row-end-3 col-start-3 col-end-4 flex justify-center items-center">
+                     <img className="size-16 sm:size-24 lg:size-32 rounded-full object-cover" src={CocaCola} alt="Coca Cola" />
+                  </div>
+                  <div className="product-card row-start-3 row-end-4 col-start-2 col-end-3 flex justify-center items-center">
+                     <img className="size-16 sm:size-24 lg:size-32 rounded-full object-cover" src={MakeUp} alt="Make Up" />
+                  </div>
+                  <span className="row-start-3 row-end-4 col-start-3 col-end-4 flex justify-center items-center text-xl sm:text-2xl lg:text-3xl font-semibold bg-[#f45b69] hover:bg-[#52489c] hover:transition duration-500 ease-in-out">ALL</span>
+               </div>
+               <div className="products-description mt-5 sm:mt-16 lg:mt-24">
+                  <h2 className="text-2xl lg:text-3xl font-bold text-center">This is your CHANCE.</h2>
+               </div>
+            </section>
             <div className="text-container flex flex-col justify-center items-center border">
                <h2 className="text-4xl font-bold text-slate-500">Welcome to Our Website</h2>
                <p className="text-lg text-justify text-gray-700">We've been proudly serving customers for over 20 years, offering a wide range of products to meet your needs. Whether you're looking for electronics, clothing, home goods, or anything in between, we've got you covered. Shop with confidence knowing you're getting top-quality items and excellent customer service. Explore our website today and discover why customers have trusted us for decades.</p>
