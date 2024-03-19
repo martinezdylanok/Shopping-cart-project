@@ -74,6 +74,41 @@ describe("Hero element", () => {
    });
 });
 
+describe("Products element", () => {
+   test("renders all product images correctly", () => {
+      const { getByAltText } = render(<HomePage />);
+
+      const leatherBackpackImage = getByAltText("Leather Backpack");
+      const headphonesImage = getByAltText("Headphones");
+      const cocaColaImage = getByAltText("Coca Cola");
+      const makeUpImage = getByAltText("Make Up");
+
+      expect(leatherBackpackImage).toBeInTheDocument();
+      expect(headphonesImage).toBeInTheDocument();
+      expect(cocaColaImage).toBeInTheDocument();
+      expect(makeUpImage).toBeInTheDocument();
+   });
+
+   test("renders all product descriptions correctly", () => {
+      const { getByText } = render(<HomePage />);
+
+      const buyText = getByText("BUY");
+      const themText = getByText("THEM");
+      const allText = getByText("ALL");
+
+      expect(buyText).toBeInTheDocument();
+      expect(themText).toBeInTheDocument();
+      expect(allText).toBeInTheDocument();
+   });
+
+   test("renders the products container description correctly", () => {
+      const { getByText } = render(<HomePage />);
+
+      const containerDescription = getByText("This is your CHANCE.");
+      expect(containerDescription).toBeInTheDocument();
+   });
+});
+
 describe("Main Component", () => {
    test("checks if the main element was rendered", () => {
       const { container } = render(<HomePage />);
