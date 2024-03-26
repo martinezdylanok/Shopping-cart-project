@@ -1,5 +1,5 @@
-import { describe, test, expect, beforeEach } from "vitest";
-import { render } from "@testing-library/react";
+import { describe, test, expect, beforeEach, vi } from "vitest";
+import { render, fireEvent } from "@testing-library/react";
 import React from "react";
 import HomePage from "../components/HomePage";
 
@@ -132,5 +132,45 @@ describe("About element", () => {
       const { getByText } = render(<HomePage />);
       const section = getByText(/meet bob, a jovial chap with a penchant for pranks/i).closest("section");
       expect(section).toHaveClass("about-container");
+   });
+});
+
+describe("Contact form", () => {
+   test("renders contact form in desktop view", () => {
+      window.innerWidth = 1025;
+      window.dispatchEvent(new Event("resize"));
+
+      const { getByPlaceholderText } = render(<HomePage />);
+
+      const nameInput = getByPlaceholderText("Name");
+      const emailInput = getByPlaceholderText("Email adress");
+      const messageInput = getByPlaceholderText("Write your message...");
+
+      expect(nameInput).toBeInTheDocument();
+      expect(emailInput).toBeInTheDocument();
+      expect(messageInput).toBeInTheDocument();
+   });
+
+   test("renders contact form in mobile view", () => {
+      window.innerWidth = 500;
+      window.dispatchEvent(new Event("resize"));
+
+      const { getByPlaceholderText } = render(<HomePage />);
+
+      const nameInput = getByPlaceholderText("Name");
+      const emailInput = getByPlaceholderText("Email adress");
+      const messageInput = getByPlaceholderText("Write your message...");
+
+      expect(nameInput).toBeInTheDocument();
+      expect(emailInput).toBeInTheDocument();
+      expect(messageInput).toBeInTheDocument();
+   });
+
+   test("submit button text is correct", () => {
+      const { getByText } = render(<HomePage />);
+
+      const submitButton = getByText("SUBMIT");
+
+      expect(submitButton).toBeInTheDocument();
    });
 });
