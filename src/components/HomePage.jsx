@@ -131,8 +131,8 @@ export default function HomePage() {
                <section className="flex flex-col gap-5 sm:gap-10 bg-[#52489c24] -mx-8 px-5 py-10">
                   <h1 className="text-xl font-bold sm:text-4xl">Wanna say something?</h1>
                   <form className="flex flex-col gap-5 sm:gap-10">
-                     <input className="sm:text-2xl shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" id="name" name="name" placeholder="NAME" required />
-                     <input className="sm:text-2xl shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="email" id="email" name="email" placeholder="EMAIL" required />
+                     <input className="sm:text-2xl shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" id="name" name="name" placeholder="Name" required />
+                     <input className="sm:text-2xl shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="email" id="email" name="email" placeholder="Email adress" required />
                      <textarea className="sm:text-2xl shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="message" name="message" rows="10" cols="30" placeholder="Write your message..." required />
                      <button className="p-10 bg-[#52489c] text-white font-bold py-2 px-4 hover:bg-[#f45b69] hover:transition duration-500 ease-in-out sm:text-2xl" type="submit">
                         SUBMIT
