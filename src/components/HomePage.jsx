@@ -10,13 +10,16 @@ import Bob from "../assets/jonas-kakaroto-KIPqvvTOC1s-unsplash.jpg";
 
 export default function HomePage() {
    const [showToggleMenu, setShowToggleMenu] = useState(false);
+   const [changeFormDisplay, setChangeFormDisplay] = useState(false);
 
    useEffect(() => {
       const handleResize = () => {
          if (window.innerWidth < 1024) {
             setShowToggleMenu(true);
+            setChangeFormDisplay(true);
          } else {
             setShowToggleMenu(false);
+            setChangeFormDisplay(false);
          }
       };
       handleResize();
@@ -68,7 +71,7 @@ export default function HomePage() {
                <h1 className="text-xl font-bold text-white sm:text-3xl lg:text-4xl">Welcome to the Emporium of Extravagant Eccentricities!</h1>
                <p className="text-justify text-white sm:text-xl sm:px-20 lg:px-5">Gather 'round, seekers of splendid sensations and purveyors of peculiarity!</p>
                <button type="button" className=" bg-[#f45b69] text-white font-bold py-2 px-4 hover:bg-[#52489c] hover:transition duration-500 ease-in-out sm:py-4 sm:px-8">
-                  <p className="text-xl font-light sm:font-semibold">SHOP NOW</p>
+                  <p className="text-xl font-bold">SHOP NOW</p>
                </button>
             </div>
          </section>
@@ -105,6 +108,38 @@ export default function HomePage() {
                   <p className="text-justify text-white sm:text-xl lg:text-xl">Meet Bob, a jovial chap with a penchant for pranks. One day, he launched "Bob's Bizarre Bazaar" as a joke, showcasing absurd products like glow-in-the-dark socks and inflatable bowties. To his surprise, orders poured in for these ridiculous items. Soon, Bob found himself unintentionally running a thriving online store. From bacon-scented candles to inflatable unicorn horns for cats, Bob's jest became an internet sensation, proving that laughter knows no bounds.</p>
                </div>
             </section>
+            {!changeFormDisplay && (
+               <section className="flex flex-col justify-center items-center gap-24 bg-[#52489c24] -mx-8 py-10">
+                  <h1 className="text-xl font-bold sm:text-4xl">Wanna say something?</h1>
+                  <form className="bg-white shadow-md rounded p-8">
+                     <div className="form-wrapper flex gap-10">
+                        <div className="left-side-form flex flex-col gap-10">
+                           <input className="sm:text-2xl shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" id="name" name="name" placeholder="Name" required />
+                           <input className="sm:text-2xl shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="email" id="email" name="email" placeholder="Email adress" required />
+                        </div>
+                        <div className="right-side-form">
+                           <textarea className="sm:text-2xl shadow appearance-none border rounded w-full py-[6px] px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="message" name="message" rows="4" cols="30" placeholder="Write your message..." required />
+                        </div>
+                     </div>
+                     <button className=" bg-[#52489c] text-white font-bold py-2 px-4 mt-5 hover:bg-[#f45b69] hover:transition duration-500 ease-in-out sm:text-2xl" type="submit">
+                        SUBMIT
+                     </button>
+                  </form>
+               </section>
+            )}
+            {changeFormDisplay && (
+               <section className="flex flex-col gap-5 sm:gap-10 bg-[#52489c24] -mx-8 px-5 py-10">
+                  <h1 className="text-xl font-bold sm:text-4xl">Wanna say something?</h1>
+                  <form className="flex flex-col gap-5 sm:gap-10">
+                     <input className="sm:text-2xl shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" id="name" name="name" placeholder="NAME" required />
+                     <input className="sm:text-2xl shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="email" id="email" name="email" placeholder="EMAIL" required />
+                     <textarea className="sm:text-2xl shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="message" name="message" rows="10" cols="30" placeholder="Write your message..." required />
+                     <button className="p-10 bg-[#52489c] text-white font-bold py-2 px-4 hover:bg-[#f45b69] hover:transition duration-500 ease-in-out sm:text-2xl" type="submit">
+                        SUBMIT
+                     </button>
+                  </form>
+               </section>
+            )}
          </main>
          <footer>
             <p />
