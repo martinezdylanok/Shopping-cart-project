@@ -1,36 +1,56 @@
-import { describe, test, expect, beforeEach, vi } from "vitest";
-import { render, fireEvent } from "@testing-library/react";
+import { describe, test, expect, beforeEach } from "vitest";
+import { getByText, render } from "@testing-library/react";
 import React from "react";
 import HomePage from "../components/HomePage";
 
-describe("Header element with screen width less than 1024px", () => {
-   beforeEach(() => {
-      window.innerWidth = 1023;
-      window.dispatchEvent(new Event("resize"));
-   });
-
-   test("header contains navigation buttons", () => {
+describe("Header section", () => {
+   test("renders h1 element", () => {
       const { getByRole } = render(<HomePage />);
-      const toggleMenuButton = getByRole("button", { name: /toggle menu/i });
-      const shoppingCartButton = getByRole("button", { name: /shopping cart/i });
-      expect(toggleMenuButton).toBeInTheDocument();
-      expect(shoppingCartButton).toBeInTheDocument();
-   });
-
-   test("navigation buttons have correct accessibility attributes", () => {
-      const { getByLabelText } = render(<HomePage />);
-      const toggleMenuButton = getByLabelText("Toggle Menu");
-      const shoppingCartButton = getByLabelText("Shopping Cart");
-      expect(toggleMenuButton).toBeInTheDocument();
-      expect(shoppingCartButton).toBeInTheDocument();
+      const h1 = getByRole("banner");
+      expect(h1).toBeInTheDocument();
    });
 });
 
-describe("Header element", () => {
-   test("renders header with correct title", () => {
-      const { getByText } = render(<HomePage />);
-      const title = getByText("Bob's Bizarre Bazaar");
-      expect(title).toBeInTheDocument();
+describe("Header section with screen width less than 641 px", () => {
+   beforeEach(() => {
+      window.innerWidth = 640;
+      window.dispatchEvent(new Event("resize"));
+   });
+
+   test("render button element with correct aria label", () => {
+      const { getByLabelText } = render(<HomePage />);
+      const webSectionsButton = getByLabelText("Web Sections");
+      expect(webSectionsButton).toBeInTheDocument();
+   });
+});
+
+describe("Header section with screen width greater than 640 px", () => {
+   beforeEach(() => {
+      window.innerWidth = 641;
+      window.dispatchEvent(new Event("resize"));
+   });
+
+   test("render nav element with correct aria label", () => {
+      const { getByLabelText } = render(<HomePage />);
+      const navElement = getByLabelText("Primary Navigation");
+      expect(navElement).toBeInTheDocument();
+   });
+
+   test("render 4 a elements inside the nav element", () => {
+      const { getByLabelText } = render(<HomePage />);
+      const navElement = getByLabelText("Primary Navigation");
+      const aElements = navElement.querySelectorAll("a");
+      expect(aElements.length).toBe(4);
+   });
+
+   test("each a element has correct aria label", () => {
+      const { getByLabelText } = render(<HomePage />);
+      const navElement = getByLabelText("Primary Navigation");
+      const aElements = navElement.querySelectorAll("a");
+      expect(aElements[0]).toHaveAttribute("aria-label", "Home");
+      expect(aElements[1]).toHaveAttribute("aria-label", "Products");
+      expect(aElements[2]).toHaveAttribute("aria-label", "About");
+      expect(aElements[3]).toHaveAttribute("aria-label", "Contact");
    });
 
    test("the cart icon is rendered", () => {
@@ -38,78 +58,117 @@ describe("Header element", () => {
       const cartIcon = getByAltText("cart-icon");
       expect(cartIcon).toBeInTheDocument();
    });
-
-   test("navigation button has correct styling", () => {
-      const { getByLabelText } = render(<HomePage />);
-      const shoppingCartButton = getByLabelText("Shopping Cart");
-      expect(shoppingCartButton).toHaveClass("cart-button");
-   });
-
-   test("the menu icon is not rendered if screen width is greater than 1024px", () => {
-      window.innerWidth = 1025;
-      window.dispatchEvent(new Event("resize"));
-      const { queryByAltText } = render(<HomePage />);
-      const menuIcon = queryByAltText("hamburger-menu-icon");
-      expect(menuIcon).not.toBeInTheDocument();
-   });
 });
 
-describe("Hero element", () => {
-   test("renders hero element", () => {
-      const { getByText } = render(<HomePage />);
-      const hero = getByText("Welcome to the Emporium of Extravagant Eccentricities!");
-      expect(hero).toBeInTheDocument();
+describe("Hero section", () => {
+   test("renders hero image", () => {
+      const { getByLabelText } = render(<HomePage />);
+      const heroImage = getByLabelText("Products Background Image");
+      expect(heroImage).toBeInTheDocument();
    });
 
-   test("renders hero content", () => {
+   test("renders h1 element", () => {
       const { getByText } = render(<HomePage />);
-      const heroContent = getByText("Gather 'round, seekers of splendid sensations and purveyors of peculiarity!");
-      expect(heroContent).toBeInTheDocument();
+      const heroH1 = getByText("Welcome to the Emporium of Extravagant Eccentricities!");
+      expect(heroH1).toBeInTheDocument();
    });
 
-   test("renders shop now button", () => {
-      const { getByRole } = render(<HomePage />);
-      const shopNowButton = getByRole("button", { name: /shop now/i });
+   test("renders p element", () => {
+      const { getByText } = render(<HomePage />);
+      const heroP = getByText("Gather 'round, seekers of splendid sensations and purveyors of peculiarity!");
+      expect(heroP).toBeInTheDocument();
+   });
+
+   test("renders button", () => {
+      const { getByLabelText } = render(<HomePage />);
+      const shopNowButton = getByLabelText("Shop");
       expect(shopNowButton).toBeInTheDocument();
    });
 });
 
-describe("Products element", () => {
-   test("renders all product images correctly", () => {
-      const { getByAltText } = render(<HomePage />);
-
-      const leatherBackpackImage = getByAltText("Leather Backpack");
-      const headphonesImage = getByAltText("Headphones");
-      const cocaColaImage = getByAltText("Coca Cola");
-      const makeUpImage = getByAltText("Make Up");
-
-      expect(leatherBackpackImage).toBeInTheDocument();
-      expect(headphonesImage).toBeInTheDocument();
-      expect(cocaColaImage).toBeInTheDocument();
-      expect(makeUpImage).toBeInTheDocument();
+describe("Main section", () => {
+   test("renders the main section", () => {
+      const { getByRole } = render(<HomePage />);
+      const mainSection = getByRole("main");
+      expect(mainSection).toBeInTheDocument();
    });
 
-   test("renders all product descriptions correctly", () => {
-      const { getByText } = render(<HomePage />);
-
-      const buyText = getByText("BUY");
-      const themText = getByText("THEM");
-      const allText = getByText("ALL");
-
-      expect(buyText).toBeInTheDocument();
-      expect(themText).toBeInTheDocument();
-      expect(allText).toBeInTheDocument();
+   test("renders products section", () => {
+      const { getByLabelText } = render(<HomePage />);
+      const productsSection = getByLabelText("Products Section");
+      expect(productsSection).toBeInTheDocument();
    });
 
-   test("renders the products container description correctly", () => {
-      const { getByText } = render(<HomePage />);
+   test("renders about section", () => {
+      const { getByLabelText } = render(<HomePage />);
+      const aboutSection = getByLabelText("About Section");
+      expect(aboutSection).toBeInTheDocument();
+   });
 
-      const containerDescription = getByText("This is your CHANCE.");
-      expect(containerDescription).toBeInTheDocument();
+   test("renders contact section", () => {
+      const { getByLabelText } = render(<HomePage />);
+      const contactSection = getByLabelText("Contact Section");
+      expect(contactSection).toBeInTheDocument();
    });
 });
 
-describe("About element", () => {
+describe("Products section", () => {
+   test("renders products grid", () => {
+      const { getByLabelText } = render(<HomePage />);
+      const productsGrid = getByLabelText("Products Grid");
+      expect(productsGrid).toBeInTheDocument();
+   });
+
+   test("span element has the corect text", () => {
+      const { getByText } = render(<HomePage />);
+      const spanElement = getByText("BUY");
+      expect(spanElement).toBeInTheDocument();
+   });
+
+   test("img element has the correct aria label", () => {
+      const { getByLabelText } = render(<HomePage />);
+      const imgElement = getByLabelText("Leather Backpack");
+      expect(imgElement).toBeInTheDocument();
+   });
+
+   test("img element has the correct aria label", () => {
+      const { getByLabelText } = render(<HomePage />);
+      const imgElement = getByLabelText("Headphones");
+      expect(imgElement).toBeInTheDocument();
+   });
+
+   test("span element has the correct text", () => {
+      const { getByText } = render(<HomePage />);
+      const spanElement = getByText("THEM");
+      expect(spanElement).toBeInTheDocument();
+   });
+
+   test("img element has the correct aria label", () => {
+      const { getByLabelText } = render(<HomePage />);
+      const imgElement = getByLabelText("Coca Cola");
+      expect(imgElement).toBeInTheDocument();
+   });
+
+   test("img element has the correct aria label", () => {
+      const { getByLabelText } = render(<HomePage />);
+      const imgElement = getByLabelText("Makeup");
+      expect(imgElement).toBeInTheDocument();
+   });
+
+   test("span element has the correct text", () => {
+      const { getByText } = render(<HomePage />);
+      const spanElement = getByText("ALL");
+      expect(spanElement).toBeInTheDocument();
+   });
+
+   test("h2 element has the correct text", () => {
+      const { getByRole } = render(<HomePage />);
+      const heading = getByRole("heading", { name: "This is your CHANCE." });
+      expect(heading).toBeInTheDocument();
+   });
+});
+
+describe("About section", () => {
    test("renders Bob image with correct alt text", () => {
       const { getByAltText } = render(<HomePage />);
       const bobImage = getByAltText("Bob");
@@ -127,50 +186,210 @@ describe("About element", () => {
       const text = getByText(/meet bob, a jovial chap with a penchant for pranks/i);
       expect(text).toBeInTheDocument();
    });
-
-   test("about section has correct styling", () => {
-      const { getByText } = render(<HomePage />);
-      const section = getByText(/meet bob, a jovial chap with a penchant for pranks/i).closest("section");
-      expect(section).toHaveClass("about-container");
-   });
 });
 
-describe("Contact form", () => {
-   test("renders contact form in desktop view", () => {
-      window.innerWidth = 1025;
+describe("Contact form section", () => {
+   test("section has correct aria label", () => {
+      const { getByLabelText } = render(<HomePage />);
+      const contactFormSection = getByLabelText("Contact Section");
+      expect(contactFormSection).toBeInTheDocument();
+   });
+
+   test("h1 element has the correct text", () => {
+      const { getByRole } = render(<HomePage />);
+      const heading = getByRole("heading", { name: "Wanna say something?" });
+      expect(heading).toBeInTheDocument();
+   });
+
+   test("renders contact form with screen width less than 641 px", () => {
+      window.innerWidth = 640;
       window.dispatchEvent(new Event("resize"));
 
-      const { getByPlaceholderText } = render(<HomePage />);
+      const { getByLabelText } = render(<HomePage />);
 
-      const nameInput = getByPlaceholderText("Name");
-      const emailInput = getByPlaceholderText("Email adress");
-      const messageInput = getByPlaceholderText("Write your message...");
+      const nameInput = getByLabelText("Name");
+      const emailInput = getByLabelText("Email");
+      const textArea = getByLabelText("Message");
+      const submitButton = getByLabelText("Submit");
 
       expect(nameInput).toBeInTheDocument();
       expect(emailInput).toBeInTheDocument();
-      expect(messageInput).toBeInTheDocument();
-   });
-
-   test("renders contact form in mobile view", () => {
-      window.innerWidth = 500;
-      window.dispatchEvent(new Event("resize"));
-
-      const { getByPlaceholderText } = render(<HomePage />);
-
-      const nameInput = getByPlaceholderText("Name");
-      const emailInput = getByPlaceholderText("Email adress");
-      const messageInput = getByPlaceholderText("Write your message...");
-
-      expect(nameInput).toBeInTheDocument();
-      expect(emailInput).toBeInTheDocument();
-      expect(messageInput).toBeInTheDocument();
-   });
-
-   test("submit button text is correct", () => {
-      const { getByText } = render(<HomePage />);
-
-      const submitButton = getByText("SUBMIT");
-
+      expect(textArea).toBeInTheDocument();
       expect(submitButton).toBeInTheDocument();
+   });
+
+   test("renders contact form with screen width greater than 640 px", () => {
+      window.innerWidth = 641;
+      window.dispatchEvent(new Event("resize"));
+
+      const { getByLabelText } = render(<HomePage />);
+
+      const nameInput = getByLabelText("Name");
+      const emailInput = getByLabelText("Email");
+      const textArea = getByLabelText("Message");
+      const submitButton = getByLabelText("Submit");
+
+      expect(nameInput).toBeInTheDocument();
+      expect(emailInput).toBeInTheDocument();
+      expect(textArea).toBeInTheDocument();
+      expect(submitButton).toBeInTheDocument();
+   });
+
+   describe("Footer section with screen width less than 641 px", () => {
+      beforeEach(() => {
+         window.innerWidth = 640;
+         window.dispatchEvent(new Event("resize"));
+      });
+
+      test("renders footer section", () => {
+         const { getByRole } = render(<HomePage />);
+
+         const footerSection = getByRole("contentinfo");
+         expect(footerSection).toBeInTheDocument();
+      });
+
+      test("renders second h1 element with correct text", () => {
+         const { getAllByText } = render(<HomePage />);
+
+         const h1Elements = getAllByText("Bob's Bizarre Bazaar");
+         const secondH1Element = h1Elements[1];
+
+         expect(h1Elements.length).toBeGreaterThanOrEqual(2);
+         expect(secondH1Element).toBeInTheDocument();
+      });
+
+      test("renders button with correct aria label", () => {
+         const { getByLabelText } = render(<HomePage />);
+
+         const ToggleMenuButton = getByLabelText("Toggle Menu");
+         expect(ToggleMenuButton).toBeInTheDocument();
+      });
+
+      test("renders button with correct aria label", () => {
+         const { getByLabelText } = render(<HomePage />);
+
+         const GitHubButton = getByLabelText("GitHub");
+         expect(GitHubButton).toBeInTheDocument();
+      });
+
+      test("renders button with correct aria label", () => {
+         const { getByLabelText } = render(<HomePage />);
+
+         const LinkedIn = getByLabelText("LinkedIn");
+         expect(LinkedIn).toBeInTheDocument();
+      });
+
+      test("renders span element with correct text", () => {
+         const { getByText } = render(<HomePage />);
+
+         const SpanElement = getByText("Made with ❤️ by DylanMartinezOk");
+         expect(SpanElement).toBeInTheDocument();
+      });
+
+      test("renders span element with correct text", () => {
+         const { getByText } = render(<HomePage />);
+
+         const SpanElement = getByText("© 2024 Bob's Bizarre Bazaar");
+         expect(SpanElement).toBeInTheDocument();
+      });
+   });
+
+   describe("Footer section with screen width greater than 640 px", () => {
+      beforeEach(() => {
+         window.innerWidth = 641;
+         window.dispatchEvent(new Event("resize"));
+      });
+
+      test("renders footer section", () => {
+         const { getByRole } = render(<HomePage />);
+
+         const footerSection = getByRole("contentinfo");
+         expect(footerSection).toBeInTheDocument();
+      });
+
+      test("renders second h1 element with correct text", () => {
+         const { getAllByText } = render(<HomePage />);
+
+         const h1Elements = getAllByText("Bob's Bizarre Bazaar");
+         const secondH1Element = h1Elements[1];
+
+         expect(h1Elements.length).toBeGreaterThanOrEqual(2);
+         expect(secondH1Element).toBeInTheDocument();
+      });
+
+      test("renders h2 element with correct text", () => {
+         const { getByText } = render(<HomePage />);
+
+         const h2Element = getByText("Main links");
+         expect(h2Element).toBeInTheDocument();
+      });
+
+      test("render a element with correct aria label", () => {
+         const { getAllByLabelText } = render(<HomePage />);
+
+         const aElements = getAllByLabelText("Home");
+         const secondAElement = aElements[1];
+
+         expect(aElements.length).toBeGreaterThanOrEqual(2);
+         expect(secondAElement).toBeInTheDocument();
+      });
+
+      test("render a element with correct aria label", () => {
+         const { getAllByLabelText } = render(<HomePage />);
+
+         const aElements = getAllByLabelText("Products");
+         const secondAElement = aElements[1];
+
+         expect(aElements.length).toBeGreaterThanOrEqual(2);
+         expect(secondAElement).toBeInTheDocument();
+      });
+
+      test("render a element with correct aria label", () => {
+         const { getAllByLabelText } = render(<HomePage />);
+
+         const aElements = getAllByLabelText("About");
+         const secondAElement = aElements[1];
+
+         expect(aElements.length).toBeGreaterThanOrEqual(2);
+         expect(secondAElement).toBeInTheDocument();
+      });
+
+      test("render a element with correct aria label", () => {
+         const { getAllByLabelText } = render(<HomePage />);
+
+         const aElements = getAllByLabelText("Contact");
+         const secondAElement = aElements[1];
+
+         expect(aElements.length).toBeGreaterThanOrEqual(2);
+         expect(secondAElement).toBeInTheDocument();
+      });
+
+      test("renders h2 element with correct text", () => {
+         const { getByText } = render(<HomePage />);
+
+         const h2Element = getByText("Get in touch");
+         expect(h2Element).toBeInTheDocument();
+      });
+
+      test("renders button with correct aria label", () => {
+         const { getByLabelText } = render(<HomePage />);
+
+         const GitHubButton = getByLabelText("GitHub");
+         expect(GitHubButton).toBeInTheDocument();
+      });
+
+      test("renders button with correct aria label", () => {
+         const { getByLabelText } = render(<HomePage />);
+
+         const LinkedIn = getByLabelText("LinkedIn");
+         expect(LinkedIn).toBeInTheDocument();
+      });
+
+      test("renders span element with correct text", () => {
+         const { getByText } = render(<HomePage />);
+
+         const SpanElement = getByText("© 2024 Bob's Bizarre Bazaar");
+         expect(SpanElement).toBeInTheDocument();
+      });
    });
 });
