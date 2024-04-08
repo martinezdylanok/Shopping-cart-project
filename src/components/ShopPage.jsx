@@ -11,18 +11,15 @@ export default function ShopPage({ isDesktop }) {
          {isDesktop && (
             <>
                <section className="hero-container bg-cover bg-center" aria-label="Products Background Image" style={{ backgroundImage: `url(${HeaderBackgroundImage})` }}>
-                  <div className="hero-wrapper flex flex-col justify-center items-center backdrop-blur-sm p-5 gap-16">
-                     <h1 className="text-xl font-semibold text-white sm:text-3xl lg:text-4xl text-center">Month's top choice</h1>
-                     <div className="group top-product-container p-5 flex flex-col justify-center items-center shadow-sm shadow-white rounded hover:bg-white hover:shadow-black transition duration-700 ease-in-out" aria-label="Top Product Card">
-                        <h1 className="text-xl text-center font-semibold sm:text-3xl lg:text-4xl opacity-0 transition-opacity group-hover:opacity-100">Product name</h1>
-                        <p className="text-justify sm:text-xl sm:px-20 lg:px-5 opacity-0 transition-opacity group-hover:opacity-100">Product description</p>
-                     </div>
+                  <div className="hero-wrapper p-5 flex flex-col justify-center items-center gap-10 bg-gradient-to-r bg-[#52489c6f] sm:p-14 sm:gap-16 lg:p-32 xl:p-52">
+                     <h1 className="text-xl text-center font-bold text-white sm:text-3xl lg:text-4xl">Here is where you can find all the good staff</h1>
+                     <p className="text-justify text-white sm:text-xl sm:px-20 lg:px-5">Take a look to all the things we have found for you!</p>
                   </div>
                </section>
                <main className="my-20">
                   <section className="products-container flex flex-col justify-center items-center gap-20">
                      <h1 className="text-center text-2xl font-bold sm:text-4xl lg:text-6xl xl:text-8xl">Our products</h1>
-                     <div className="products-grid grid grid-rows-3 grid-cols-3 gap-5 lg:gap-20 xl:gap-32" aria-label="Products Grid">
+                     <div className="products-grid grid grid-rows-3 grid-cols-3 gap-y-10 gap-x-5 lg:gap-20 xl:gap-32" aria-label="Products Grid">
                         <ProductCard isDesktop={isDesktop} />
                         <ProductCard isDesktop={isDesktop} />
                         <ProductCard isDesktop={isDesktop} />
@@ -39,17 +36,10 @@ export default function ShopPage({ isDesktop }) {
          )}
          {!isDesktop && (
             <>
-               <section className="hero-container bg-cover bg-center" aria-label="Products Background Image" style={{ backgroundImage: `url(${HeaderBackgroundImage})` }}>
-                  <div className="hero-wrapper flex flex-col justify-center items-center backdrop-blur-sm p-5 gap-16">
-                     <h1 className="text-xl font-semibold text-white sm:text-3xl lg:text-4xl text-center">
-                        Month's top
-                        <br />
-                        choice
-                     </h1>
-                     <div className="group top-product-container p-5 flex flex-col justify-center items-center shadow-sm shadow-white rounded hover:bg-white hover:shadow-black transition duration-700 ease-in-out" aria-label="Top Product Card">
-                        <h1 className="text-xl text-center font-semibold sm:text-3xl lg:text-4xl opacity-0 transition-opacity group-hover:opacity-100">Product name</h1>
-                        <p className="text-justify sm:text-xl sm:px-20 lg:px-5 opacity-0 transition-opacity group-hover:opacity-100">Product description</p>
-                     </div>
+               <section className="hero-container bg-cover bg-center sm:mt-8 lg:mt-16 xl:mt-14 3xl:mt-0" aria-label="Products Background Image" style={{ backgroundImage: `url(${HeaderBackgroundImage})` }}>
+                  <div className="hero-wrapper p-5 h-[320px] flex flex-col justify-center items-center gap-10 bg-gradient-to-r bg-[#52489c6f] sm:p-14 sm:gap-16 lg:p-32 xl:p-52">
+                     <h1 className="text-xl text-center font-bold text-white sm:text-3xl lg:text-4xl">Here is where you can find all the good staff</h1>
+                     <p className="text-justify text-white sm:text-xl sm:px-20 lg:px-5">Take a look to all the things we have found for you!</p>
                   </div>
                </section>
                <main className="my-20">
