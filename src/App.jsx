@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import HomePage from "./components/HomePage";
+import ShopPage from "./components/ShopPage";
 
 function App() {
    const [windowsWidthState, setWindowsWidthState] = useState(false);
 
    useEffect(() => {
       const handleResize = () => {
-         if (window.innerWidth < 641) {
+         if (window.innerWidth < 640) {
             setWindowsWidthState(false);
          } else {
             setWindowsWidthState(true);
@@ -21,7 +21,7 @@ function App() {
       };
    }, []);
 
-   return <HomePage isDesktop={windowsWidthState} />;
+   return <ShopPage isDesktop={windowsWidthState} />;
 }
 
 export default App;
