@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react";
-import productObjectHandler from "../modules/productObjectHandler";
+import fetchProduct from "../modules/fetchProduct";
+import formatProductData from "../modules/formatProductData";
 
 export default function ProductCard({ isDesktop }) {
    const [productData, setProductData] = useState(null);
 
    useEffect(() => {
       async function fetchData() {
-         const productObject = await productObjectHandler();
-         setProductData(productObject);
+         const product = await fetchProduct;
+         if (product) {
+            const formattedProduct = formatProductData(product);
+            setProductData(formattedProduct);
+         }
       }
       fetchData();
    }, []);
