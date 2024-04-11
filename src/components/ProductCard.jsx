@@ -1,26 +1,23 @@
-import React, { useState, useEffect } from "react";
-import fetchProduct from "../modules/fetchProduct";
+import React, { useState } from "react";
 import formatProductData from "../modules/formatProductData";
+import handleQuantityChange from "../modules/handleQuantityChange";
+import calculateTotalPrice from "../modules/calculateTotalPrice";
 
-export default function ProductCard({ isDesktop }) {
-   const [productData, setProductData] = useState(null);
-
-   useEffect(() => {
-      async function fetchData() {
-         const product = await fetchProduct;
-         if (product) {
-            const formattedProduct = formatProductData(product);
-            setProductData(formattedProduct);
-         }
-      }
-      fetchData();
-   }, []);
-
-   if (!productData) {
+export default function ProductCard({ isDesktop, product }) {
+   const [quantity, setQuantity] = useState(1);
+   if (!product) {
       return <span className="flex justify-center">Loading a lovely product...</span>;
    }
 
-   const { productName, productDescription, productPrice, productImage } = productData;
+   const formattedProductData = formatProductData(product);
+
+   const { productName, productDescription, productPrice, productImage } = formattedProductData;
+
+   const handleQuantityChangeHandler = (event) => {
+      setQuantity(handleQuantityChange(event.target.value));
+   };
+
+   const totalPrice = calculateTotalPrice(productPrice, quantity);
 
    return (
       <>
@@ -32,10 +29,10 @@ export default function ProductCard({ isDesktop }) {
                   <p className="italic sm:text-sm lg:text-lg xl:text-xl sm:size-32 lg:w-48">{productDescription}</p>
                </div>
                <div className="product-card-lower-part flex flex-col gap-1">
-                  <span className="font-bold text-lg sm:text-base lg:text-lg xl:text-xl">{productPrice}</span>
+                  <span className="font-bold text-lg sm:text-base lg:text-lg xl:text-xl">{totalPrice}</span>
                   <form className="flex gap-5" action="">
                      <div className="left-side-form flex flex-col">
-                        <input className="text-lg sm:text-base lg:text-lg xl:text-xl size-[38px] sm:size-[34px] lg:size-[38px] pl-1 bg-[#4063bb63] border border-black rounded" type="number" />
+                        <input className="text-lg sm:text-base lg:text-lg xl:text-xl size-[38px] sm:size-[34px] lg:size-[38px] pl-1 bg-[#4063bb63] border border-black rounded" type="number" value={quantity} onChange={handleQuantityChangeHandler} />
                      </div>
                      <div className="right-side-form">
                         <button className="font-semibold text-lg sm:text-base lg:text-lg xl:text-xl border border-black rounded p-1 bg-[#4062bb]" type="submit">
@@ -54,10 +51,10 @@ export default function ProductCard({ isDesktop }) {
                   <p className="italic">{productDescription}</p>
                </div>
                <div className="product-card-lower-part flex flex-col gap-1">
-                  <span className="font-bold text-lg">{productPrice}</span>
+                  <span className="font-bold text-lg">{totalPrice}</span>
                   <form className="flex justify-center items-center gap-5" action="">
                      <div className="left-side-form flex flex-col">
-                        <input className="text-lg size-[38px] pl-1 bg-[#4063bb63] border border-black rounded" type="number" />
+                        <input className="text-lg size-[38px] pl-1 bg-[#4063bb63] border border-black rounded" type="number" value={quantity} onChange={handleQuantityChangeHandler} />
                      </div>
                      <div className="right-side-form">
                         <button className="font-semibold text-lg border border-black rounded p-1 bg-[#4062bb]" type="submit">
