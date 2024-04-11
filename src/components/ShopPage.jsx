@@ -4,7 +4,7 @@ import Footer from "./Footer";
 import HeaderBackgroundImage from "../assets/daria-nepriakhina-zNU3ErDAbAw-unsplash.jpg";
 import ProductCard from "./ProductCard";
 
-export default function ShopPage({ isDesktop }) {
+export default function ShopPage({ isDesktop, products }) {
    return (
       <>
          <Header isDesktop={isDesktop} />
@@ -20,15 +20,9 @@ export default function ShopPage({ isDesktop }) {
                   <section className="products-container flex flex-col justify-center items-center gap-20">
                      <h1 className="text-center text-2xl font-bold sm:text-4xl lg:text-6xl xl:text-8xl">Our products</h1>
                      <div className="products-grid grid grid-rows-3 grid-cols-3 gap-y-10 gap-x-5 lg:gap-20 xl:gap-32" aria-label="Products Grid">
-                        <ProductCard isDesktop={isDesktop} />
-                        <ProductCard isDesktop={isDesktop} />
-                        <ProductCard isDesktop={isDesktop} />
-                        <ProductCard isDesktop={isDesktop} />
-                        <ProductCard isDesktop={isDesktop} />
-                        <ProductCard isDesktop={isDesktop} />
-                        <ProductCard isDesktop={isDesktop} />
-                        <ProductCard isDesktop={isDesktop} />
-                        <ProductCard isDesktop={isDesktop} />
+                        {products.map((product, index) => (
+                           <ProductCard isDesktop={isDesktop} product={product} key={index} />
+                        ))}{" "}
                      </div>
                   </section>
                </main>
@@ -46,15 +40,9 @@ export default function ShopPage({ isDesktop }) {
                   <section className="products-container flex flex-col items-center justify-center gap-16" aria-label="Products Section">
                      <h1 className="text-center text-2xl font-bold sm:text-4xl lg:text-6xl xl:text-8xl">Our products</h1>
                      <div className="products-grid grid mx-5 grid-rows-9 grid-cols-1 gap-10" aria-label="Products Grid">
-                        <ProductCard />
-                        <ProductCard />
-                        <ProductCard />
-                        <ProductCard />
-                        <ProductCard />
-                        <ProductCard />
-                        <ProductCard />
-                        <ProductCard />
-                        <ProductCard />
+                        {products.map((product, index) => (
+                           <ProductCard isDesktop={isDesktop} product={product} key={index} />
+                        ))}{" "}
                      </div>
                   </section>
                </main>
