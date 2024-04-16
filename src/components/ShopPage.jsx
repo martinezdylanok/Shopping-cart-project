@@ -1,13 +1,24 @@
 import React from "react";
+import PropTypes from "prop-types";
 import Header from "./Header";
 import Footer from "./Footer";
 import HeaderBackgroundImage from "../assets/daria-nepriakhina-zNU3ErDAbAw-unsplash.jpg";
 import ProductCard from "./ProductCard";
 
-export default function ShopPage({ isDesktop, products }) {
+ShopPage.propTypes = {
+   isDesktop: PropTypes.bool.isRequired,
+   products: PropTypes.array.isRequired,
+   addToCart: PropTypes.func.isRequired,
+   productsInShoppingCart: PropTypes.array.isRequired,
+   toggleMenu: PropTypes.func.isRequired,
+   headerMenuIsOpen: PropTypes.bool.isRequired,
+   footerMenuIsOpen: PropTypes.bool.isRequired,
+};
+
+export default function ShopPage({ isDesktop, products, addToCart, productsInShoppingCart, toggleMenu, headerMenuIsOpen, footerMenuIsOpen }) {
    return (
       <>
-         <Header isDesktop={isDesktop} />
+         <Header isDesktop={isDesktop} productsInShoppingCart={productsInShoppingCart} toggleMenu={toggleMenu} headerMenuIsOpen={headerMenuIsOpen} />
          {isDesktop && (
             <>
                <section className="hero-container bg-cover bg-center" aria-label="Products Background Image" style={{ backgroundImage: `url(${HeaderBackgroundImage})` }}>
@@ -21,7 +32,7 @@ export default function ShopPage({ isDesktop, products }) {
                      <h1 className="text-center text-2xl font-bold sm:text-4xl lg:text-6xl xl:text-8xl">Our products</h1>
                      <div className="products-grid grid grid-rows-3 grid-cols-3 gap-y-10 gap-x-5 lg:gap-20 xl:gap-32" aria-label="Products Grid">
                         {products.map((product, index) => (
-                           <ProductCard isDesktop={isDesktop} product={product} key={index} />
+                           <ProductCard isDesktop={isDesktop} product={product} addToCart={addToCart} key={index} />
                         ))}{" "}
                      </div>
                   </section>
@@ -41,14 +52,14 @@ export default function ShopPage({ isDesktop, products }) {
                      <h1 className="text-center text-2xl font-bold sm:text-4xl lg:text-6xl xl:text-8xl">Our products</h1>
                      <div className="products-grid grid mx-5 grid-rows-9 grid-cols-1 gap-10" aria-label="Products Grid">
                         {products.map((product, index) => (
-                           <ProductCard isDesktop={isDesktop} product={product} key={index} />
+                           <ProductCard isDesktop={isDesktop} product={product} addToCart={addToCart} key={index} />
                         ))}{" "}
                      </div>
                   </section>
                </main>
             </>
          )}
-         <Footer isDesktop={isDesktop} />
+         <Footer isDesktop={isDesktop} toggleMenu={toggleMenu} footerMenuIsOpen={footerMenuIsOpen} />
       </>
    );
 }
