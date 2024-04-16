@@ -2,15 +2,41 @@ import React from "react";
 import WhiteHamburguerMenuSvg from "../assets/menu_FILL0_wght400_GRAD0_opsz24 copy.svg";
 import ShoppingCartSvg from "../assets/shopping_cart_FILL0_wght400_GRAD0_opsz24.svg";
 
-export default function Header({ isDesktop }) {
+export default function Header({ isDesktop, productsInShoppingCart, toggleMenu, headerMenuIsOpen }) {
    return (
       <>
          {!isDesktop && (
             <header className="flex justify-between items-center px-2 py-5 bg-[#f45b69]">
-               <h1 className="font-semibold text-[1.4em] sm:text-2xl md:text-3xl lg: text-white">Bob's Bizarre Bazaar</h1>
-               <button type="button" aria-label="Web Sections" className="hamburger-button flex items-center justify-center size-9 border-2 border-white">
-                  <img className="size-6" src={WhiteHamburguerMenuSvg} alt="hamburger-menu-icon" />
-               </button>
+               {!headerMenuIsOpen && (
+                  <>
+                     <h1 className="font-semibold text-[1.4em] sm:text-2xl md:text-3xl lg: text-white">Bob's Bizarre Bazaar</h1>
+                     <button type="button" aria-label="Toggle Header Menu" className="hamburger-button flex items-center justify-center size-9" onClick={() => toggleMenu("header")}>
+                        <img className="size-9" src={WhiteHamburguerMenuSvg} alt="hamburger-menu-icon" />
+                     </button>
+                  </>
+               )}
+               {headerMenuIsOpen && (
+                  <>
+                     <h1 className="font-semibold text-[1.4em] sm:text-2xl md:text-3xl lg: text-white">Bob's Bizarre Bazaar</h1>
+                     <button type="button" aria-label="Toggle Header Menu" className="hamburger-button flex items-center justify-center size-9" onClick={() => toggleMenu("header")}>
+                        <img className="size-9" src={WhiteHamburguerMenuSvg} alt="hamburger-menu-icon" />
+                     </button>
+                     <ul className="menu-items bg-white flex flex-col gap-1 rounded-sm absolute top-5 left-44 px-2 py-1">
+                        <li>
+                           <a href="#">HOME</a>
+                        </li>
+                        <li>
+                           <a href="#">PRODUCTS</a>
+                        </li>
+                        <li>
+                           <a href="#">ABOUT</a>
+                        </li>
+                        <li>
+                           <a href="#">CONTACT</a>
+                        </li>
+                     </ul>
+                  </>
+               )}
             </header>
          )}
          {isDesktop && (
@@ -29,9 +55,10 @@ export default function Header({ isDesktop }) {
                   <a aria-label="Contact" href="#" className="sm:font-semibold lg:text-xl xl:text-2xl text-white hover:text-[#4062bb]">
                      Contact
                   </a>
-                  <button type="button" aria-label="Shopping Cart" className="cart-button flex items-center justify-center size-6 lg:size-8 border whitespace-normal">
+                  <button type="button" aria-label="Shopping Cart" className="cart-button flex items-center justify-center size-6 lg:size-10 lg:p-1">
                      <img className="size-6 lg:size-8" src={ShoppingCartSvg} alt="cart-icon" />
                   </button>
+                  <span className="text-[#4062bb] font-semibold text-lg -ml-12 mb-5">{productsInShoppingCart.length}</span>
                </nav>
             </header>
          )}
