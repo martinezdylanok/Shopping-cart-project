@@ -5,6 +5,17 @@ import fetchProduct from "./modules/fetchProduct";
 function App() {
    const [windowsWidthState, setWindowsWidthState] = useState(false);
    const [products, setProducts] = useState([]);
+   const [productsInShoppingCart, setProductsInShoppingCart] = useState([]);
+   const [headerMenuIsOpen, setHeaderMenuIsOpen] = useState(false);
+   const [footerMenuIsOpen, setFooterMenuIsOpen] = useState(false);
+
+   const toggleMenu = (menuType) => {
+      if (menuType === "header") {
+         setHeaderMenuIsOpen(!headerMenuIsOpen);
+      } else {
+         setFooterMenuIsOpen(!footerMenuIsOpen);
+      }
+   };
 
    useEffect(() => {
       const handleResize = () => {
@@ -42,7 +53,12 @@ function App() {
       fetchProducts();
    }, []);
 
-   return <ShopPage isDesktop={windowsWidthState} products={products} />;
+   const addToCart = (product, quantity) => {
+      const updatedCart = [...productsInShoppingCart, { product, quantity }];
+      setProductsInShoppingCart(updatedCart);
+   };
+
+   return <ShopPage isDesktop={windowsWidthState} products={products} addToCart={addToCart} productsInShoppingCart={productsInShoppingCart} toggleMenu={toggleMenu} headerMenuIsOpen={headerMenuIsOpen} footerMenuIsOpen={footerMenuIsOpen} />;
 }
 
 export default App;
