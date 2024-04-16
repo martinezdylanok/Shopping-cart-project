@@ -3,8 +3,9 @@ import formatProductData from "../modules/formatProductData";
 import handleQuantityChange from "../modules/handleQuantityChange";
 import calculateTotalPrice from "../modules/calculateTotalPrice";
 
-export default function ProductCard({ isDesktop, product }) {
+export default function ProductCard({ isDesktop, product, addToCart }) {
    const [quantity, setQuantity] = useState(1);
+
    if (!product) {
       return <span className="flex justify-center">Loading a lovely product...</span>;
    }
@@ -15,6 +16,12 @@ export default function ProductCard({ isDesktop, product }) {
 
    const handleQuantityChangeHandler = (event) => {
       setQuantity(handleQuantityChange(event.target.value));
+   };
+
+   const handleAddToCart = (e) => {
+      e.preventDefault();
+      addToCart(product, quantity);
+      setQuantity(1);
    };
 
    const totalPrice = calculateTotalPrice(productPrice, quantity);
@@ -35,7 +42,7 @@ export default function ProductCard({ isDesktop, product }) {
                         <input className="text-lg sm:text-base lg:text-lg xl:text-xl size-[38px] sm:size-[34px] lg:size-[38px] pl-1 bg-[#4063bb63] border border-black rounded" type="number" value={quantity} onChange={handleQuantityChangeHandler} />
                      </div>
                      <div className="right-side-form">
-                        <button className="font-semibold text-lg sm:text-base lg:text-lg xl:text-xl border border-black rounded p-1 bg-[#4062bb]" type="submit">
+                        <button className="font-semibold text-lg sm:text-base lg:text-lg xl:text-xl border border-black rounded p-1 bg-[#4062bb]" type="submit" onClick={handleAddToCart}>
                            Add to cart
                         </button>
                      </div>
@@ -57,7 +64,7 @@ export default function ProductCard({ isDesktop, product }) {
                         <input className="text-lg size-[38px] pl-1 bg-[#4063bb63] border border-black rounded" type="number" value={quantity} onChange={handleQuantityChangeHandler} />
                      </div>
                      <div className="right-side-form">
-                        <button className="font-semibold text-lg border border-black rounded p-1 bg-[#4062bb]" type="submit">
+                        <button className="font-semibold text-lg border border-black rounded p-1 bg-[#4062bb]" type="submit" onClick={handleAddToCart}>
                            Add to cart
                         </button>
                      </div>
