@@ -3,16 +3,39 @@ import WhiteHamburguerMenuSvg from "../assets/menu_FILL0_wght400_GRAD0_opsz24 co
 import GitHubSvg from "../assets/github.svg";
 import LinkedInSvg from "../assets/linkedin.svg";
 
-export default function Footer({ isDesktop }) {
+export default function Footer({ isDesktop, toggleMenu, footerMenuIsOpen }) {
    return (
       <>
          {!isDesktop && (
             <footer className="flex flex-col items-center gap-16 p-5 bg-[#f45b69]">
                <h1 className="font-semibold text-[1.4em] text-white">Bob's Bizarre Bazaar</h1>
                <div className="footer-main-section flex flex-col items-center gap-5">
-                  <button type="button" aria-label="Toggle Menu" className="hamburger-button flex items-center justify-center size-9">
-                     <img className="size-9" src={WhiteHamburguerMenuSvg} alt="hamburger-menu-icon" />
-                  </button>
+                  {!footerMenuIsOpen && (
+                     <button type="button" aria-label="Toggle Footer Menu" className="hamburger-button flex items-center justify-center size-9" onClick={() => toggleMenu("footer")}>
+                        <img className="size-9" src={WhiteHamburguerMenuSvg} alt="hamburger-menu-icon" />
+                     </button>
+                  )}
+                  {footerMenuIsOpen && (
+                     <>
+                        <button type="button" aria-label="Toggle Footer Menu" className="hamburger-button flex items-center justify-center size-9" onClick={() => toggleMenu("footer")}>
+                           <img className="size-9" src={WhiteHamburguerMenuSvg} alt="hamburger-menu-icon" />
+                        </button>
+                        <ul className="menu-items bg-white flex flex-col gap-1 rounded-sm px-2 py-1">
+                           <li>
+                              <a href="#">HOME</a>
+                           </li>
+                           <li>
+                              <a href="#">PRODUCTS</a>
+                           </li>
+                           <li>
+                              <a href="#">ABOUT</a>
+                           </li>
+                           <li>
+                              <a href="#">CONTACT</a>
+                           </li>
+                        </ul>
+                     </>
+                  )}
                   <div className="social-media-wrapper flex items-center justify-center">
                      <button type="button" aria-label="GitHub" className="github-button flex items-center justify-center size-9">
                         <img className="size-6" src={GitHubSvg} alt="gihub-icon" />
