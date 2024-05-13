@@ -23,5 +23,5 @@ The concept of a shopping cart application is widely applicable in e-commerce an
 As someone passionate about web development, I was excited to tackle a project that integrates various technologies and frameworks commonly used in modern web applications. Building a shopping cart from scratch allowed me to apply my knowledge and creativity to solve real-world challenges.
 
 ## A gimplse of the Project
-[Checkout the project here!](https://link-url-here.org)
+[Checkout the project here!](https://shopping-cart-project-red.vercel.app/)
 
