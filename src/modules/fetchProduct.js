@@ -6,10 +6,6 @@ export default async function fetchProduct() {
       const products = await response.json();
       const uniqueProducts = products.filter((product) => !fetchedProductsIds.has(product.id));
 
-      if (uniqueProducts.length === 0 || fetchedProductsIds.length >= 9) {
-         return fetchProduct();
-      }
-
       const selectedProduct = uniqueProducts[Math.floor(Math.random() * uniqueProducts.length)];
       fetchedProductsIds.add(selectedProduct.id);
 
