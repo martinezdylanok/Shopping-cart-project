@@ -3,9 +3,10 @@ export default function formatProductData(product) {
    const limitedDescription = product.description.length > 100 ? `${product.description.substring(0, 100)}...` : product.description;
 
    return {
-      productName: limitedTitle,
-      productDescription: limitedDescription,
-      productPrice: `$${product.price}`,
-      productImage: product.image,
+      productObjectName: limitedTitle,
+      productObjectDescription: limitedDescription,
+      productObjectPrice: product.price,
+      productObjectImage: product.image,
+      productObjectQuantity: product.quantity,
    };
 }
