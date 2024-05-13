@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
-import ShopPage from "./components/ShopPage";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import fetchProduct from "./modules/fetchProduct";
+import HomePage from "./components/HomePage";
+import ProductsPage from "./components/ProductsPage";
+import CartPage from "./components/CartPage";
+import NotFoundPage from "./components/NotFoundPage";
 
 function App() {
    const [windowsWidthState, setWindowsWidthState] = useState(false);
@@ -8,12 +12,15 @@ function App() {
    const [productsInShoppingCart, setProductsInShoppingCart] = useState([]);
    const [headerMenuIsOpen, setHeaderMenuIsOpen] = useState(false);
    const [footerMenuIsOpen, setFooterMenuIsOpen] = useState(false);
+   const [subTotalPrice, setSubTotalPrice] = useState(0);
 
    const toggleMenu = (menuType) => {
       if (menuType === "header") {
          setHeaderMenuIsOpen(!headerMenuIsOpen);
-      } else {
+         setFooterMenuIsOpen(false);
+      } else if (menuType === "footer") {
          setFooterMenuIsOpen(!footerMenuIsOpen);
+         setHeaderMenuIsOpen(false);
       }
    };
 
@@ -35,17 +42,15 @@ function App() {
    }, []);
 
    useEffect(() => {
-      async function fetchProducts() {
+      async function fetchProducts(fetchedProducts = []) {
          try {
-            const fetchedProducts = [];
-            while (fetchedProducts.length < 9) {
-               const product = fetchProduct();
-               if (!product) {
-                  break;
-               }
-               fetchedProducts.push(product);
+            const product = await fetchProduct();
+            if (!product || fetchedProducts.length >= 9) {
+               setProducts(await Promise.all(fetchedProducts));
+               return;
             }
-            setProducts(await Promise.all(fetchedProducts));
+            const productWithQuantity = { ...product, quantity: 1 };
+            fetchProducts([...fetchedProducts, productWithQuantity]);
          } catch (error) {
             console.error("Error fetching products:", error);
          }
@@ -53,12 +58,44 @@ function App() {
       fetchProducts();
    }, []);
 
-   const addToCart = (product, quantity) => {
-      const updatedCart = [...productsInShoppingCart, { product, quantity }];
+   const addToCart = (product) => {
+      const existingProductIndex = productsInShoppingCart.findIndex((item) => item.id === product.id);
+      if (existingProductIndex !== -1) {
+         const updatedCart = [...productsInShoppingCart];
+         updatedCart[existingProductIndex].quantity += product.quantity;
+      } else {
+         const updatedCart = [...productsInShoppingCart, product];
+         setProductsInShoppingCart(updatedCart);
+      }
+   };
+
+   const removeFromCart = (productId) => {
+      const updatedCart = productsInShoppingCart.filter((product) => product.id !== productId);
       setProductsInShoppingCart(updatedCart);
    };
 
-   return <ShopPage isDesktop={windowsWidthState} products={products} addToCart={addToCart} productsInShoppingCart={productsInShoppingCart} toggleMenu={toggleMenu} headerMenuIsOpen={headerMenuIsOpen} footerMenuIsOpen={footerMenuIsOpen} />;
-}
+   const router = createBrowserRouter([
+      {
+         path: "/",
+         element: <HomePage isDesktop={windowsWidthState} headerMenuIsOpen={headerMenuIsOpen} footerMenuIsOpen={footerMenuIsOpen} productsInShoppingCart={productsInShoppingCart} toggleMenu={toggleMenu} />,
+         errorElement: <NotFoundPage />,
+      },
+      {
+         path: "/products",
+         element: <ProductsPage isDesktop={windowsWidthState} headerMenuIsOpen={headerMenuIsOpen} footerMenuIsOpen={footerMenuIsOpen} productsInShoppingCart={productsInShoppingCart} products={products} addToCart={addToCart} setSubTotalPrice={setSubTotalPrice} toggleMenu={toggleMenu} />,
+         errorElement: <NotFoundPage />,
+      },
+      {
+         path: "/cart",
+         element: <CartPage isDesktop={windowsWidthState} headerMenuIsOpen={headerMenuIsOpen} footerMenuIsOpen={footerMenuIsOpen} productsInShoppingCart={productsInShoppingCart} addToCart={addToCart} removeFromCart={removeFromCart} setProductsInShoppingCart={setProductsInShoppingCart} subTotalPrice={subTotalPrice} setSubTotalPrice={setSubTotalPrice} toggleMenu={toggleMenu} />,
+         errorElement: <NotFoundPage />,
+      },
+   ]);
 
+   return (
+      <React.StrictMode>
+         <RouterProvider router={router} />
+      </React.StrictMode>
+   );
+}
 export default App;
