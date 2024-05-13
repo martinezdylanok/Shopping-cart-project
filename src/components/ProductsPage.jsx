@@ -5,24 +5,14 @@ import Footer from "./Footer";
 import HeaderBackgroundImage from "../assets/daria-nepriakhina-zNU3ErDAbAw-unsplash.jpg";
 import ProductCard from "./ProductCard";
 
-ShopPage.propTypes = {
-   isDesktop: PropTypes.bool.isRequired,
-   products: PropTypes.array.isRequired,
-   addToCart: PropTypes.func.isRequired,
-   productsInShoppingCart: PropTypes.array.isRequired,
-   toggleMenu: PropTypes.func.isRequired,
-   headerMenuIsOpen: PropTypes.bool.isRequired,
-   footerMenuIsOpen: PropTypes.bool.isRequired,
-};
-
-export default function ShopPage({ isDesktop, products, addToCart, productsInShoppingCart, toggleMenu, headerMenuIsOpen, footerMenuIsOpen }) {
+export default function ProductsPage({ isDesktop, headerMenuIsOpen, footerMenuIsOpen, productsInShoppingCart, products, addToCart, setSubTotalPrice, toggleMenu }) {
    return (
       <>
          <Header isDesktop={isDesktop} productsInShoppingCart={productsInShoppingCart} toggleMenu={toggleMenu} headerMenuIsOpen={headerMenuIsOpen} />
          {isDesktop && (
             <>
-               <section className="hero-container bg-cover bg-center" aria-label="Products Background Image" style={{ backgroundImage: `url(${HeaderBackgroundImage})` }}>
-                  <div className="hero-wrapper p-5 flex flex-col justify-center items-center gap-10 bg-gradient-to-r bg-[#52489c6f] sm:p-14 sm:gap-16 lg:p-32 xl:p-52">
+               <section className="hero-container sm:h-[456px] md:h-[428px] lg:h-[552px] xl:h-[712px] 2xl:h-[672px] bg-cover bg-center" aria-label="Products Background Image" style={{ backgroundImage: `url(${HeaderBackgroundImage})` }}>
+                  <div className="hero-wrapper p-5 flex flex-col justify-center items-center gap-10 sm:p-14 sm:gap-16 lg:p-32 xl:p-52">
                      <h1 className="text-xl text-center font-bold text-white sm:text-3xl lg:text-4xl">Here is where you can find all the good staff</h1>
                      <p className="text-justify text-white sm:text-xl sm:px-20 lg:px-5">Take a look to all the things we have found for you!</p>
                   </div>
@@ -32,7 +22,7 @@ export default function ShopPage({ isDesktop, products, addToCart, productsInSho
                      <h1 className="text-center text-2xl font-bold sm:text-4xl lg:text-6xl xl:text-8xl">Our products</h1>
                      <div className="products-grid grid grid-rows-3 grid-cols-3 gap-y-10 gap-x-5 lg:gap-20 xl:gap-32" aria-label="Products Grid">
                         {products.map((product, index) => (
-                           <ProductCard isDesktop={isDesktop} product={product} addToCart={addToCart} key={index} />
+                           <ProductCard isDesktop={isDesktop} product={product} addToCart={addToCart} setSubTotalPrice={setSubTotalPrice} key={index} />
                         ))}{" "}
                      </div>
                   </section>
@@ -52,14 +42,25 @@ export default function ShopPage({ isDesktop, products, addToCart, productsInSho
                      <h1 className="text-center text-2xl font-bold sm:text-4xl lg:text-6xl xl:text-8xl">Our products</h1>
                      <div className="products-grid grid mx-5 grid-rows-9 grid-cols-1 gap-10" aria-label="Products Grid">
                         {products.map((product, index) => (
-                           <ProductCard isDesktop={isDesktop} product={product} addToCart={addToCart} key={index} />
+                           <ProductCard isDesktop={isDesktop} product={product} addToCart={addToCart} setSubTotalPrice={setSubTotalPrice} key={index} />
                         ))}{" "}
                      </div>
                   </section>
                </main>
             </>
          )}
-         <Footer isDesktop={isDesktop} toggleMenu={toggleMenu} footerMenuIsOpen={footerMenuIsOpen} />
+         <Footer isDesktop={isDesktop} productsInShoppingCart={productsInShoppingCart} toggleMenu={toggleMenu} footerMenuIsOpen={footerMenuIsOpen} />
       </>
    );
 }
+
+ProductsPage.propTypes = {
+   isDesktop: PropTypes.bool.isRequired,
+   products: PropTypes.instanceOf(Array).isRequired,
+   addToCart: PropTypes.func.isRequired,
+   setSubTotalPrice: PropTypes.func.isRequired,
+   productsInShoppingCart: PropTypes.instanceOf(Array).isRequired,
+   toggleMenu: PropTypes.func.isRequired,
+   headerMenuIsOpen: PropTypes.bool.isRequired,
+   footerMenuIsOpen: PropTypes.bool.isRequired,
+};
