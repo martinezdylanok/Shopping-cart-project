@@ -27,7 +27,7 @@ export default function Header({ isDesktop, headerMenuIsOpen, productsInShopping
                   <>
                      <h1 className="font-semibold text-[1.4em] sm:text-2xl md:text-3xl lg: text-white">Bob&apos;s Bizarre Bazaar</h1>
                      <button type="button" aria-label="Toggle Header Menu" className="hamburger-button flex items-center justify-center size-9" onClick={() => toggleMenu("header")}>
-                        <img className="size-9 animate-[spin_5s_linear_infinite]" src={WhiteHamburguerMenuSvg} alt="hamburger-menu-icon" />
+                        <img className="size-9" src={WhiteHamburguerMenuSvg} alt="hamburger-menu-icon" />
                      </button>
                   </>
                )}
@@ -35,9 +35,9 @@ export default function Header({ isDesktop, headerMenuIsOpen, productsInShopping
                   <>
                      <h1 className="font-semibold text-[1.4em] sm:text-2xl md:text-3xl lg: text-white">Bob&apos;s Bizarre Bazaar</h1>
                      <button type="button" aria-label="Toggle Header Menu" className="hamburger-button flex items-center justify-center size-9" onClick={() => toggleMenu("header")}>
-                        <img className="size-9 animate-[spin_5s_linear_infinite]" src={WhiteHamburguerMenuSvg} alt="hamburger-menu-icon" />
+                        <img className="size-9" src={WhiteHamburguerMenuSvg} alt="hamburger-menu-icon" />
                      </button>
-                     <ul className="menu-items bg-white flex flex-col gap-1 rounded-sm absolute top-7 left-[181px] px-2 py-1">
+                     <ul className="menu-items bg-white flex flex-col gap-1 rounded-sm absolute top-7 left-[180px] 2xs:left-[280px] 3xs:left-[380px] px-2 py-1">
                         <li>
                            <Link to="/" aria-label="Home">
                               HOME
