@@ -10,7 +10,7 @@ import CocaCola from "../assets/daria-nepriakhina-Av-esLsvDvs-unsplash.jpg";
 import MakeUp from "../assets/nataliya-melnychuk-PdzMmdHqN2c-unsplash.jpg";
 import Bob from "../assets/jonas-kakaroto-KIPqvvTOC1s-unsplash.jpg";
 
-export default function HomePage({ isDesktop, headerMenuIsOpen, footerMenuIsOpen, productsInShoppingCart, toggleMenu }) {
+export default function HomePage({ isDesktop, headerMenuIsOpen, footerMenuIsOpen, toggleMenu }) {
    const [messageSent, setMessageSent] = useState(false);
 
    const handleSubmit = (event) => {
@@ -20,7 +20,7 @@ export default function HomePage({ isDesktop, headerMenuIsOpen, footerMenuIsOpen
 
    return (
       <>
-         <Header isDesktop={isDesktop} headerMenuIsOpen={headerMenuIsOpen} productsInShoppingCart={productsInShoppingCart} toggleMenu={toggleMenu} />
+         <Header isDesktop={isDesktop} headerMenuIsOpen={headerMenuIsOpen} toggleMenu={toggleMenu} />
          <section className="hero-container bg-cover bg-center" aria-label="Products Background Image" style={{ backgroundImage: `url(${BackgroundHeroImage})` }}>
             <div className="hero-wrapper p-5 flex flex-col justify-center items-center gap-10 bg-gradient-to-r bg-[#52489c6f] sm:p-14 sm:gap-16 lg:p-32 xl:p-52">
                <h1 className="text-xl text-center font-bold text-white sm:text-3xl lg:text-4xl">Welcome to the Emporium of Extravagant Eccentricities!</h1>
@@ -100,14 +100,13 @@ export default function HomePage({ isDesktop, headerMenuIsOpen, footerMenuIsOpen
                </section>
             )}
          </main>
-         <Footer isDesktop={isDesktop} footerMenuIsOpen={footerMenuIsOpen} productsInShoppingCart={productsInShoppingCart} toggleMenu={toggleMenu} />
+         <Footer isDesktop={isDesktop} footerMenuIsOpen={footerMenuIsOpen} toggleMenu={toggleMenu} />
       </>
    );
 }
 
 HomePage.propTypes = {
    isDesktop: PropTypes.bool.isRequired,
-   productsInShoppingCart: PropTypes.instanceOf(Array).isRequired,
    toggleMenu: PropTypes.func.isRequired,
    headerMenuIsOpen: PropTypes.bool.isRequired,
    footerMenuIsOpen: PropTypes.bool.isRequired,
