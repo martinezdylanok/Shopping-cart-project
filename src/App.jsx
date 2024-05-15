@@ -5,11 +5,12 @@ import HomePage from "./components/HomePage";
 import ProductsPage from "./components/ProductsPage";
 import CartPage from "./components/CartPage";
 import NotFoundPage from "./components/NotFoundPage";
+import { useProductsInShoppingCart } from "./contexts/ProductsInShoppingCartContext";
 
 function App() {
    const [windowsWidthState, setWindowsWidthState] = useState(false);
    const [products, setProducts] = useState([]);
-   const [productsInShoppingCart, setProductsInShoppingCart] = useState([]);
+   const productsInShoppingCartContext = useProductsInShoppingCart();
    const [headerMenuIsOpen, setHeaderMenuIsOpen] = useState(false);
    const [footerMenuIsOpen, setFooterMenuIsOpen] = useState(false);
    const [subTotalPrice, setSubTotalPrice] = useState(0);
@@ -59,35 +60,36 @@ function App() {
    }, []);
 
    const addToCart = (product) => {
-      const existingProductIndex = productsInShoppingCart.findIndex((item) => item.id === product.id);
+      const existingProductIndex = productsInShoppingCartContext.productsInShoppingCart.findIndex((item) => item.id === product.id);
       if (existingProductIndex !== -1) {
-         const updatedCart = [...productsInShoppingCart];
+         const updatedCart = [...productsInShoppingCartContext.productsInShoppingCart];
          updatedCart[existingProductIndex].quantity += product.quantity;
+         productsInShoppingCartContext.setProductsInShoppingCart(updatedCart);
       } else {
-         const updatedCart = [...productsInShoppingCart, product];
-         setProductsInShoppingCart(updatedCart);
+         const updatedCart = [...productsInShoppingCartContext.productsInShoppingCart, product];
+         productsInShoppingCartContext.setProductsInShoppingCart(updatedCart);
       }
    };
 
    const removeFromCart = (productId) => {
-      const updatedCart = productsInShoppingCart.filter((product) => product.id !== productId);
-      setProductsInShoppingCart(updatedCart);
+      const updatedCart = productsInShoppingCartContext.productsInShoppingCart.filter((product) => product.id !== productId);
+      productsInShoppingCartContext.setProductsInShoppingCart(updatedCart);
    };
 
    const router = createBrowserRouter([
       {
          path: "/",
-         element: <HomePage isDesktop={windowsWidthState} headerMenuIsOpen={headerMenuIsOpen} footerMenuIsOpen={footerMenuIsOpen} productsInShoppingCart={productsInShoppingCart} toggleMenu={toggleMenu} />,
+         element: <HomePage isDesktop={windowsWidthState} headerMenuIsOpen={headerMenuIsOpen} footerMenuIsOpen={footerMenuIsOpen} toggleMenu={toggleMenu} />,
          errorElement: <NotFoundPage />,
       },
       {
          path: "/products",
-         element: <ProductsPage isDesktop={windowsWidthState} headerMenuIsOpen={headerMenuIsOpen} footerMenuIsOpen={footerMenuIsOpen} productsInShoppingCart={productsInShoppingCart} products={products} addToCart={addToCart} setSubTotalPrice={setSubTotalPrice} toggleMenu={toggleMenu} />,
+         element: <ProductsPage isDesktop={windowsWidthState} headerMenuIsOpen={headerMenuIsOpen} footerMenuIsOpen={footerMenuIsOpen} products={products} addToCart={addToCart} setSubTotalPrice={setSubTotalPrice} toggleMenu={toggleMenu} />,
          errorElement: <NotFoundPage />,
       },
       {
          path: "/cart",
-         element: <CartPage isDesktop={windowsWidthState} headerMenuIsOpen={headerMenuIsOpen} footerMenuIsOpen={footerMenuIsOpen} productsInShoppingCart={productsInShoppingCart} addToCart={addToCart} removeFromCart={removeFromCart} setProductsInShoppingCart={setProductsInShoppingCart} subTotalPrice={subTotalPrice} setSubTotalPrice={setSubTotalPrice} toggleMenu={toggleMenu} />,
+         element: <CartPage isDesktop={windowsWidthState} headerMenuIsOpen={headerMenuIsOpen} footerMenuIsOpen={footerMenuIsOpen} addToCart={addToCart} removeFromCart={removeFromCart} setProductsInShoppingCart={productsInShoppingCartContext.setProductsInShoppingCart} subTotalPrice={subTotalPrice} setSubTotalPrice={setSubTotalPrice} toggleMenu={toggleMenu} />,
          errorElement: <NotFoundPage />,
       },
    ]);
