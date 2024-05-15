@@ -1,11 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import { useProductsInShoppingCart } from "../contexts/ProductsInShoppingCartContext";
 import WhiteHamburguerMenuSvg from "../assets/menu_FILL0_wght400_GRAD0_opsz24 copy.svg";
 import GitHubSvg from "../assets/github.svg";
 import LinkedInSvg from "../assets/linkedin.svg";
 
-export default function Footer({ isDesktop, footerMenuIsOpen, productsInShoppingCart, toggleMenu }) {
+export default function Footer({ isDesktop, footerMenuIsOpen, toggleMenu }) {
+   const { productsInShoppingCart } = useProductsInShoppingCart();
+
    const scrollToAbout = () => {
       const aboutSection = document.getElementById("about");
       if (aboutSection) {
@@ -102,7 +105,7 @@ export default function Footer({ isDesktop, footerMenuIsOpen, productsInShopping
                            </Link>
                         </li>
                         <li>
-                           <Link to="/cart" className="font-semibold text-white lg:text-lg hover:text-[#4062bb] xl:text-xl" aria-label="Contact">
+                           <Link to="/cart" className="font-semibold text-white lg:text-lg hover:text-[#4062bb] xl:text-xl" aria-label="Cart">
                               CART
                            </Link>
                         </li>
@@ -136,6 +139,5 @@ export default function Footer({ isDesktop, footerMenuIsOpen, productsInShopping
 Footer.propTypes = {
    isDesktop: PropTypes.bool.isRequired,
    footerMenuIsOpen: PropTypes.bool.isRequired,
-   productsInShoppingCart: PropTypes.instanceOf(Array).isRequired,
    toggleMenu: PropTypes.func.isRequired,
 };
