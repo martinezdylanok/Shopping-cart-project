@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import CartProductCard from "./CartProductCard";
+import { useProductsInShoppingCart } from "../contexts/ProductsInShoppingCartContext";
 
-export default function ProductsCartSection({ isDesktop, productsInShoppingCart, addToCart, removeFromCart, setProductsInShoppingCart, subTotalPrice, setSubTotalPrice }) {
+export default function ProductsCartSection({ isDesktop, addToCart, removeFromCart, setProductsInShoppingCart, subTotalPrice, setSubTotalPrice }) {
+   const { productsInShoppingCart } = useProductsInShoppingCart();
+
    const [messageSent, setMessageSent] = useState(false);
 
    const handlePayment = (event) => {
@@ -133,7 +136,6 @@ export default function ProductsCartSection({ isDesktop, productsInShoppingCart,
 
 ProductsCartSection.propTypes = {
    isDesktop: PropTypes.bool.isRequired,
-   productsInShoppingCart: PropTypes.instanceOf(Array).isRequired,
    addToCart: PropTypes.func.isRequired,
    removeFromCart: PropTypes.func.isRequired,
    setProductsInShoppingCart: PropTypes.func.isRequired,
