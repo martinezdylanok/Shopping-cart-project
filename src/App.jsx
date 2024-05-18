@@ -6,26 +6,12 @@ import ProductsPage from "./components/ProductsPage";
 import CartPage from "./components/CartPage";
 import NotFoundPage from "./components/NotFoundPage";
 import { useProductsInShoppingCart } from "./contexts/ProductsInShoppingCartContext";
-import { useHeaderMenuIsOpen } from "./contexts/HeaderMenuIsOpenContext";
-import { useFooterMenuIsOpen } from "./contexts/FooterMenuIsOpenContext";
 
 function App() {
    const [windowsWidthState, setWindowsWidthState] = useState(false);
    const [products, setProducts] = useState([]);
    const [subTotalPrice, setSubTotalPrice] = useState(0);
    const productsInShoppingCartContext = useProductsInShoppingCart();
-   const headerMenuIsOpenContext = useHeaderMenuIsOpen();
-   const footerMenuIsOpenContext = useFooterMenuIsOpen();
-
-   const toggleMenu = (menuType) => {
-      if (menuType === "header") {
-         headerMenuIsOpenContext.setHeaderMenuIsOpen(!headerMenuIsOpenContext.headerMenuIsOpen);
-         footerMenuIsOpenContext.setFooterMenuIsOpen(false);
-      } else if (menuType === "footer") {
-         footerMenuIsOpenContext.setFooterMenuIsOpen(!footerMenuIsOpenContext.footerMenuIsOpen);
-         headerMenuIsOpenContext.setHeaderMenuIsOpen(false);
-      }
-   };
 
    useEffect(() => {
       const handleResize = () => {
@@ -81,17 +67,17 @@ function App() {
    const router = createBrowserRouter([
       {
          path: "/",
-         element: <HomePage isDesktop={windowsWidthState} toggleMenu={toggleMenu} />,
+         element: <HomePage isDesktop={windowsWidthState} />,
          errorElement: <NotFoundPage />,
       },
       {
          path: "/products",
-         element: <ProductsPage isDesktop={windowsWidthState} products={products} addToCart={addToCart} setSubTotalPrice={setSubTotalPrice} toggleMenu={toggleMenu} />,
+         element: <ProductsPage isDesktop={windowsWidthState} products={products} addToCart={addToCart} setSubTotalPrice={setSubTotalPrice} />,
          errorElement: <NotFoundPage />,
       },
       {
          path: "/cart",
-         element: <CartPage isDesktop={windowsWidthState} addToCart={addToCart} removeFromCart={removeFromCart} setProductsInShoppingCart={productsInShoppingCartContext.setProductsInShoppingCart} subTotalPrice={subTotalPrice} setSubTotalPrice={setSubTotalPrice} toggleMenu={toggleMenu} />,
+         element: <CartPage isDesktop={windowsWidthState} addToCart={addToCart} removeFromCart={removeFromCart} setProductsInShoppingCart={productsInShoppingCartContext.setProductsInShoppingCart} subTotalPrice={subTotalPrice} setSubTotalPrice={setSubTotalPrice} />,
          errorElement: <NotFoundPage />,
       },
    ]);
