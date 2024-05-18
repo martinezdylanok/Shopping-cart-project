@@ -6,10 +6,12 @@ import GitHubSvg from "../assets/github.svg";
 import LinkedInSvg from "../assets/linkedin.svg";
 import { useProductsInShoppingCart } from "../contexts/ProductsInShoppingCartContext";
 import { useFooterMenuIsOpen } from "../contexts/FooterMenuIsOpenContext";
+import { useToggleMenu } from "../contexts/ToggleMenuContext";
 
-export default function Footer({ isDesktop, toggleMenu }) {
+export default function Footer({ isDesktop }) {
    const { productsInShoppingCart } = useProductsInShoppingCart();
    const { footerMenuIsOpen } = useFooterMenuIsOpen();
+   const { toggleMenu } = useToggleMenu();
 
    const scrollToAbout = () => {
       const aboutSection = document.getElementById("about");
@@ -140,5 +142,4 @@ export default function Footer({ isDesktop, toggleMenu }) {
 
 Footer.propTypes = {
    isDesktop: PropTypes.bool.isRequired,
-   toggleMenu: PropTypes.func.isRequired,
 };
