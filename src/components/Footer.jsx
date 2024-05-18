@@ -1,13 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { useProductsInShoppingCart } from "../contexts/ProductsInShoppingCartContext";
 import WhiteHamburguerMenuSvg from "../assets/menu_FILL0_wght400_GRAD0_opsz24 copy.svg";
 import GitHubSvg from "../assets/github.svg";
 import LinkedInSvg from "../assets/linkedin.svg";
+import { useProductsInShoppingCart } from "../contexts/ProductsInShoppingCartContext";
+import { useFooterMenuIsOpen } from "../contexts/FooterMenuIsOpenContext";
 
-export default function Footer({ isDesktop, footerMenuIsOpen, toggleMenu }) {
+export default function Footer({ isDesktop, toggleMenu }) {
    const { productsInShoppingCart } = useProductsInShoppingCart();
+   const { footerMenuIsOpen } = useFooterMenuIsOpen();
 
    const scrollToAbout = () => {
       const aboutSection = document.getElementById("about");
@@ -31,13 +33,13 @@ export default function Footer({ isDesktop, footerMenuIsOpen, toggleMenu }) {
                <div className="footer-main-section flex flex-col items-center gap-5">
                   {!footerMenuIsOpen && (
                      <button type="button" aria-label="Toggle Footer Menu" className="hamburger-button flex items-center justify-center size-9" onClick={() => toggleMenu("footer")}>
-                        <img className="size-9 animate-[spin_5s_linear_infinite]" src={WhiteHamburguerMenuSvg} alt="hamburger-menu-icon" />
+                        <img className="size-9" src={WhiteHamburguerMenuSvg} alt="hamburger-menu-icon" />
                      </button>
                   )}
                   {footerMenuIsOpen && (
                      <>
                         <button type="button" aria-label="Toggle Footer Menu" className="hamburger-button flex items-center justify-center size-9" onClick={() => toggleMenu("footer")}>
-                           <img className="size-9 animate-[spin_5s_linear_infinite]" src={WhiteHamburguerMenuSvg} alt="hamburger-menu-icon" />
+                           <img className="size-9" src={WhiteHamburguerMenuSvg} alt="hamburger-menu-icon" />
                         </button>
                         <ul className="menu-items bg-white flex flex-col gap-1 rounded-sm px-2 py-1">
                            <li>
@@ -138,6 +140,5 @@ export default function Footer({ isDesktop, footerMenuIsOpen, toggleMenu }) {
 
 Footer.propTypes = {
    isDesktop: PropTypes.bool.isRequired,
-   footerMenuIsOpen: PropTypes.bool.isRequired,
    toggleMenu: PropTypes.func.isRequired,
 };
