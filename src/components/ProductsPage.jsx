@@ -5,10 +5,10 @@ import Footer from "./Footer";
 import HeaderBackgroundImage from "../assets/daria-nepriakhina-zNU3ErDAbAw-unsplash.jpg";
 import ProductCard from "./ProductCard";
 
-export default function ProductsPage({ isDesktop, products, addToCart, setSubTotalPrice, toggleMenu }) {
+export default function ProductsPage({ isDesktop, products, addToCart, setSubTotalPrice }) {
    return (
       <>
-         <Header isDesktop={isDesktop} toggleMenu={toggleMenu} />
+         <Header isDesktop={isDesktop} />
          {isDesktop && (
             <>
                <section className="hero-container sm:h-[456px] md:h-[428px] lg:h-[552px] xl:h-[712px] 2xl:h-[672px] bg-cover bg-center" aria-label="Products Background Image" style={{ backgroundImage: `url(${HeaderBackgroundImage})` }}>
@@ -49,7 +49,7 @@ export default function ProductsPage({ isDesktop, products, addToCart, setSubTot
                </main>
             </>
          )}
-         <Footer isDesktop={isDesktop} toggleMenu={toggleMenu} />
+         <Footer isDesktop={isDesktop} />
       </>
    );
 }
@@ -59,5 +59,4 @@ ProductsPage.propTypes = {
    products: PropTypes.instanceOf(Array).isRequired,
    addToCart: PropTypes.func.isRequired,
    setSubTotalPrice: PropTypes.func.isRequired,
-   toggleMenu: PropTypes.func.isRequired,
 };
