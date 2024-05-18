@@ -1,12 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import { useProductsInShoppingCart } from "../contexts/ProductsInShoppingCartContext";
 import WhiteHamburguerMenuSvg from "../assets/menu_FILL0_wght400_GRAD0_opsz24 copy.svg";
 import ShoppingCartSvg from "../assets/shopping_cart_FILL0_wght400_GRAD0_opsz24.svg";
+import { useProductsInShoppingCart } from "../contexts/ProductsInShoppingCartContext";
+import { useHeaderMenuIsOpen } from "../contexts/HeaderMenuIsOpenContext";
 
-export default function Header({ isDesktop, headerMenuIsOpen, toggleMenu }) {
+export default function Header({ isDesktop, toggleMenu }) {
    const { productsInShoppingCart } = useProductsInShoppingCart();
+   const { headerMenuIsOpen } = useHeaderMenuIsOpen();
 
    const scrollToAbout = () => {
       const aboutSection = document.getElementById("about");
@@ -103,6 +105,5 @@ export default function Header({ isDesktop, headerMenuIsOpen, toggleMenu }) {
 
 Header.propTypes = {
    isDesktop: PropTypes.bool.isRequired,
-   headerMenuIsOpen: PropTypes.bool.isRequired,
    toggleMenu: PropTypes.func.isRequired,
 };
