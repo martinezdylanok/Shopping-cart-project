@@ -5,10 +5,10 @@ import Footer from "./Footer";
 import HeaderBackgroundImage from "../assets/daria-nepriakhina-zNU3ErDAbAw-unsplash.jpg";
 import ProductCard from "./ProductCard";
 
-export default function ProductsPage({ isDesktop, headerMenuIsOpen, footerMenuIsOpen, products, addToCart, setSubTotalPrice, toggleMenu }) {
+export default function ProductsPage({ isDesktop, products, addToCart, setSubTotalPrice, toggleMenu }) {
    return (
       <>
-         <Header isDesktop={isDesktop} toggleMenu={toggleMenu} headerMenuIsOpen={headerMenuIsOpen} />
+         <Header isDesktop={isDesktop} toggleMenu={toggleMenu} />
          {isDesktop && (
             <>
                <section className="hero-container sm:h-[456px] md:h-[428px] lg:h-[552px] xl:h-[712px] 2xl:h-[672px] bg-cover bg-center" aria-label="Products Background Image" style={{ backgroundImage: `url(${HeaderBackgroundImage})` }}>
@@ -49,7 +49,7 @@ export default function ProductsPage({ isDesktop, headerMenuIsOpen, footerMenuIs
                </main>
             </>
          )}
-         <Footer isDesktop={isDesktop} toggleMenu={toggleMenu} footerMenuIsOpen={footerMenuIsOpen} />
+         <Footer isDesktop={isDesktop} toggleMenu={toggleMenu} />
       </>
    );
 }
@@ -60,6 +60,4 @@ ProductsPage.propTypes = {
    addToCart: PropTypes.func.isRequired,
    setSubTotalPrice: PropTypes.func.isRequired,
    toggleMenu: PropTypes.func.isRequired,
-   headerMenuIsOpen: PropTypes.bool.isRequired,
-   footerMenuIsOpen: PropTypes.bool.isRequired,
 };
