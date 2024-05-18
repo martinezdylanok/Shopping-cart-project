@@ -5,10 +5,12 @@ import WhiteHamburguerMenuSvg from "../assets/menu_FILL0_wght400_GRAD0_opsz24 co
 import ShoppingCartSvg from "../assets/shopping_cart_FILL0_wght400_GRAD0_opsz24.svg";
 import { useProductsInShoppingCart } from "../contexts/ProductsInShoppingCartContext";
 import { useHeaderMenuIsOpen } from "../contexts/HeaderMenuIsOpenContext";
+import { useToggleMenu } from "../contexts/ToggleMenuContext";
 
-export default function Header({ isDesktop, toggleMenu }) {
+export default function Header({ isDesktop }) {
    const { productsInShoppingCart } = useProductsInShoppingCart();
    const { headerMenuIsOpen } = useHeaderMenuIsOpen();
+   const { toggleMenu } = useToggleMenu();
 
    const scrollToAbout = () => {
       const aboutSection = document.getElementById("about");
@@ -105,5 +107,4 @@ export default function Header({ isDesktop, toggleMenu }) {
 
 Header.propTypes = {
    isDesktop: PropTypes.bool.isRequired,
-   toggleMenu: PropTypes.func.isRequired,
 };
