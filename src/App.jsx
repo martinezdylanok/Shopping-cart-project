@@ -9,7 +9,6 @@ import NotFoundPage from "./components/NotFoundPage";
 function App() {
    const [windowsWidthState, setWindowsWidthState] = useState(false);
    const [products, setProducts] = useState([]);
-   const [subTotalPrice, setSubTotalPrice] = useState(0);
 
    useEffect(() => {
       const handleResize = () => {
@@ -53,12 +52,12 @@ function App() {
       },
       {
          path: "/products",
-         element: <ProductsPage isDesktop={windowsWidthState} products={products} setSubTotalPrice={setSubTotalPrice} />,
+         element: <ProductsPage isDesktop={windowsWidthState} products={products} />,
          errorElement: <NotFoundPage />,
       },
       {
          path: "/cart",
-         element: <CartPage isDesktop={windowsWidthState} subTotalPrice={subTotalPrice} setSubTotalPrice={setSubTotalPrice} />,
+         element: <CartPage isDesktop={windowsWidthState} />,
          errorElement: <NotFoundPage />,
       },
    ]);
