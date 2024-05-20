@@ -4,11 +4,11 @@ import ProductsCartSection from "./ProductsCartSection";
 import Header from "./Header";
 import Footer from "./Footer";
 
-export default function CartPage({ isDesktop, addToCart, removeFromCart, setProductsInShoppingCart, subTotalPrice, setSubTotalPrice }) {
+export default function CartPage({ isDesktop, subTotalPrice, setSubTotalPrice }) {
    return (
       <>
          <Header isDesktop={isDesktop} />
-         <ProductsCartSection isDesktop={isDesktop} addToCart={addToCart} removeFromCart={removeFromCart} setProductsInShoppingCart={setProductsInShoppingCart} subTotalPrice={subTotalPrice} setSubTotalPrice={setSubTotalPrice} />
+         <ProductsCartSection isDesktop={isDesktop} subTotalPrice={subTotalPrice} setSubTotalPrice={setSubTotalPrice} />
          <Footer isDesktop={isDesktop} />
       </>
    );
@@ -16,9 +16,6 @@ export default function CartPage({ isDesktop, addToCart, removeFromCart, setProd
 
 CartPage.propTypes = {
    isDesktop: PropTypes.bool.isRequired,
-   addToCart: PropTypes.func.isRequired,
-   removeFromCart: PropTypes.func.isRequired,
-   setProductsInShoppingCart: PropTypes.func.isRequired,
    subTotalPrice: PropTypes.number.isRequired,
    setSubTotalPrice: PropTypes.func.isRequired,
 };
