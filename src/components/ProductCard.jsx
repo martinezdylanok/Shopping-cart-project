@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import formatProductData from "../modules/formatProductData";
 import { useAddToCart } from "../contexts/AddToCartContext";
+import { useSubTotalPrice } from "../contexts/SubTotalPriceContext";
 
-export default function ProductCard({ isDesktop, product, setSubTotalPrice }) {
+export default function ProductCard({ isDesktop, product }) {
    const [productCardQuantity, setProductCardQuantity] = useState(1);
    const { addToCart } = useAddToCart();
+   const { setSubTotalPrice } = useSubTotalPrice();
 
    if (!product) {
       return <span className="flex justify-center">Loading a lovely product...</span>;
@@ -86,5 +88,4 @@ export default function ProductCard({ isDesktop, product, setSubTotalPrice }) {
 
 ProductCard.propTypes = {
    isDesktop: PropTypes.bool.isRequired,
-   setSubTotalPrice: PropTypes.func.isRequired,
 };
