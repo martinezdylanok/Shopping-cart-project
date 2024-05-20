@@ -5,13 +5,11 @@ import HomePage from "./components/HomePage";
 import ProductsPage from "./components/ProductsPage";
 import CartPage from "./components/CartPage";
 import NotFoundPage from "./components/NotFoundPage";
-import { useProductsInShoppingCart } from "./contexts/ProductsInShoppingCartContext";
 
 function App() {
    const [windowsWidthState, setWindowsWidthState] = useState(false);
    const [products, setProducts] = useState([]);
    const [subTotalPrice, setSubTotalPrice] = useState(0);
-   const productsInShoppingCartContext = useProductsInShoppingCart();
 
    useEffect(() => {
       const handleResize = () => {
@@ -47,23 +45,6 @@ function App() {
       fetchProducts();
    }, []);
 
-   const addToCart = (product) => {
-      const existingProductIndex = productsInShoppingCartContext.productsInShoppingCart.findIndex((item) => item.id === product.id);
-      if (existingProductIndex !== -1) {
-         const updatedCart = [...productsInShoppingCartContext.productsInShoppingCart];
-         updatedCart[existingProductIndex].quantity += product.quantity;
-         productsInShoppingCartContext.setProductsInShoppingCart(updatedCart);
-      } else {
-         const updatedCart = [...productsInShoppingCartContext.productsInShoppingCart, product];
-         productsInShoppingCartContext.setProductsInShoppingCart(updatedCart);
-      }
-   };
-
-   const removeFromCart = (productId) => {
-      const updatedCart = productsInShoppingCartContext.productsInShoppingCart.filter((product) => product.id !== productId);
-      productsInShoppingCartContext.setProductsInShoppingCart(updatedCart);
-   };
-
    const router = createBrowserRouter([
       {
          path: "/",
@@ -72,12 +53,12 @@ function App() {
       },
       {
          path: "/products",
-         element: <ProductsPage isDesktop={windowsWidthState} products={products} addToCart={addToCart} setSubTotalPrice={setSubTotalPrice} />,
+         element: <ProductsPage isDesktop={windowsWidthState} products={products} setSubTotalPrice={setSubTotalPrice} />,
          errorElement: <NotFoundPage />,
       },
       {
          path: "/cart",
-         element: <CartPage isDesktop={windowsWidthState} addToCart={addToCart} removeFromCart={removeFromCart} setProductsInShoppingCart={productsInShoppingCartContext.setProductsInShoppingCart} subTotalPrice={subTotalPrice} setSubTotalPrice={setSubTotalPrice} />,
+         element: <CartPage isDesktop={windowsWidthState} subTotalPrice={subTotalPrice} setSubTotalPrice={setSubTotalPrice} />,
          errorElement: <NotFoundPage />,
       },
    ]);
