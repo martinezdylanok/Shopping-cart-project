@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import CartProductCard from "./CartProductCard";
 import { useProductsInShoppingCart } from "../contexts/ProductsInShoppingCartContext";
+import { useSubTotalPrice } from "../contexts/SubTotalPriceContext";
 
-export default function ProductsCartSection({ isDesktop, subTotalPrice, setSubTotalPrice }) {
+export default function ProductsCartSection({ isDesktop }) {
    const { productsInShoppingCart } = useProductsInShoppingCart();
+   const { subTotalPrice } = useSubTotalPrice();
 
    const [messageSent, setMessageSent] = useState(false);
 
@@ -37,7 +39,7 @@ export default function ProductsCartSection({ isDesktop, subTotalPrice, setSubTo
                         <hr />
                         <div className="products-grid flex flex-col gap-5" aria-label="Products Grid">
                            {productsInShoppingCart.map((product, index) => (
-                              <CartProductCard isDesktop={isDesktop} product={product} setSubTotalPrice={setSubTotalPrice} key={index} />
+                              <CartProductCard isDesktop={isDesktop} product={product} key={index} />
                            ))}
                         </div>
                      </div>
@@ -91,7 +93,7 @@ export default function ProductsCartSection({ isDesktop, subTotalPrice, setSubTo
                         <hr />
                         <div className="products-grid p-3">
                            {productsInShoppingCart.map((product, index) => (
-                              <CartProductCard isDesktop={isDesktop} product={product} setSubTotalPrice={setSubTotalPrice} key={index} />
+                              <CartProductCard isDesktop={isDesktop} product={product} key={index} />
                            ))}
                         </div>
                      </div>
@@ -136,6 +138,4 @@ export default function ProductsCartSection({ isDesktop, subTotalPrice, setSubTo
 
 ProductsCartSection.propTypes = {
    isDesktop: PropTypes.bool.isRequired,
-   subTotalPrice: PropTypes.number.isRequired,
-   setSubTotalPrice: PropTypes.func.isRequired,
 };
