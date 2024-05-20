@@ -5,7 +5,7 @@ import Footer from "./Footer";
 import HeaderBackgroundImage from "../assets/daria-nepriakhina-zNU3ErDAbAw-unsplash.jpg";
 import ProductCard from "./ProductCard";
 
-export default function ProductsPage({ isDesktop, products, setSubTotalPrice }) {
+export default function ProductsPage({ isDesktop, products }) {
    return (
       <>
          <Header isDesktop={isDesktop} />
@@ -22,7 +22,7 @@ export default function ProductsPage({ isDesktop, products, setSubTotalPrice }) 
                      <h1 className="text-center text-2xl font-bold sm:text-4xl lg:text-6xl xl:text-8xl">Our products</h1>
                      <div className="products-grid grid grid-rows-3 grid-cols-3 gap-y-10 gap-x-5 lg:gap-20 xl:gap-32" aria-label="Products Grid">
                         {products.map((product, index) => (
-                           <ProductCard isDesktop={isDesktop} product={product} setSubTotalPrice={setSubTotalPrice} key={index} />
+                           <ProductCard isDesktop={isDesktop} product={product} key={index} />
                         ))}{" "}
                      </div>
                   </section>
@@ -42,7 +42,7 @@ export default function ProductsPage({ isDesktop, products, setSubTotalPrice }) 
                      <h1 className="text-center text-2xl font-bold sm:text-4xl lg:text-6xl xl:text-8xl">Our products</h1>
                      <div className="products-grid grid mx-5 grid-rows-9 grid-cols-1 gap-10" aria-label="Products Grid">
                         {products.map((product, index) => (
-                           <ProductCard isDesktop={isDesktop} product={product} setSubTotalPrice={setSubTotalPrice} key={index} />
+                           <ProductCard isDesktop={isDesktop} product={product} key={index} />
                         ))}{" "}
                      </div>
                   </section>
@@ -57,5 +57,4 @@ export default function ProductsPage({ isDesktop, products, setSubTotalPrice }) 
 ProductsPage.propTypes = {
    isDesktop: PropTypes.bool.isRequired,
    products: PropTypes.instanceOf(Array).isRequired,
-   setSubTotalPrice: PropTypes.func.isRequired,
 };
