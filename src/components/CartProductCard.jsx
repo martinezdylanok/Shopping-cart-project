@@ -3,11 +3,13 @@ import PropTypes from "prop-types";
 import formatProductData from "../modules/formatProductData";
 import { useAddToCart } from "../contexts/AddToCartContext";
 import { useRemoveFromCart } from "../contexts/RemoveFromCartContext";
+import { useSubTotalPrice } from "../contexts/SubTotalPriceContext";
 
-export default function CartProductCard({ isDesktop, product, setSubTotalPrice }) {
+export default function CartProductCard({ isDesktop, product }) {
    const [cartProductCardQuantity, setCartProductCardQuantity] = useState(product.quantity);
    const { addToCart } = useAddToCart();
    const { removeFromCart } = useRemoveFromCart();
+   const { setSubTotalPrice } = useSubTotalPrice();
 
    if (!product) {
       return <span className="flex justify-center">Loading a lovely product...</span>;
@@ -96,5 +98,4 @@ export default function CartProductCard({ isDesktop, product, setSubTotalPrice }
 
 CartProductCard.propTypes = {
    isDesktop: PropTypes.bool.isRequired,
-   setSubTotalPrice: PropTypes.func.isRequired,
 };
