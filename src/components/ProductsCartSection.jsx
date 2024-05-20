@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import CartProductCard from "./CartProductCard";
 import { useProductsInShoppingCart } from "../contexts/ProductsInShoppingCartContext";
 
-export default function ProductsCartSection({ isDesktop, addToCart, removeFromCart, setProductsInShoppingCart, subTotalPrice, setSubTotalPrice }) {
+export default function ProductsCartSection({ isDesktop, subTotalPrice, setSubTotalPrice }) {
    const { productsInShoppingCart } = useProductsInShoppingCart();
 
    const [messageSent, setMessageSent] = useState(false);
@@ -14,7 +14,7 @@ export default function ProductsCartSection({ isDesktop, addToCart, removeFromCa
       }
       event.preventDefault();
       setMessageSent(true);
-      setProductsInShoppingCart([]);
+      productsInShoppingCart.setProductsInShoppingCart([]);
    };
 
    const shippingCost = 10;
@@ -37,7 +37,7 @@ export default function ProductsCartSection({ isDesktop, addToCart, removeFromCa
                         <hr />
                         <div className="products-grid flex flex-col gap-5" aria-label="Products Grid">
                            {productsInShoppingCart.map((product, index) => (
-                              <CartProductCard isDesktop={isDesktop} product={product} addToCart={addToCart} removeFromCart={removeFromCart} setSubTotalPrice={setSubTotalPrice} key={index} />
+                              <CartProductCard isDesktop={isDesktop} product={product} setSubTotalPrice={setSubTotalPrice} key={index} />
                            ))}
                         </div>
                      </div>
@@ -91,7 +91,7 @@ export default function ProductsCartSection({ isDesktop, addToCart, removeFromCa
                         <hr />
                         <div className="products-grid p-3">
                            {productsInShoppingCart.map((product, index) => (
-                              <CartProductCard isDesktop={isDesktop} product={product} addToCart={addToCart} removeFromCart={removeFromCart} setSubTotalPrice={setSubTotalPrice} key={index} />
+                              <CartProductCard isDesktop={isDesktop} product={product} setSubTotalPrice={setSubTotalPrice} key={index} />
                            ))}
                         </div>
                      </div>
@@ -136,9 +136,6 @@ export default function ProductsCartSection({ isDesktop, addToCart, removeFromCa
 
 ProductsCartSection.propTypes = {
    isDesktop: PropTypes.bool.isRequired,
-   addToCart: PropTypes.func.isRequired,
-   removeFromCart: PropTypes.func.isRequired,
-   setProductsInShoppingCart: PropTypes.func.isRequired,
    subTotalPrice: PropTypes.number.isRequired,
    setSubTotalPrice: PropTypes.func.isRequired,
 };
