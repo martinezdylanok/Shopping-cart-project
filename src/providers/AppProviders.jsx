@@ -5,6 +5,7 @@ import FooterMenuIsOpenProvider from "./FooterMenuIsOpenProvider";
 import ToggleMenuProvider from "./ToggleMenuProvider";
 import AddToCartProvider from "./AddToCartProvider";
 import RemoveFromCartProvider from "./RemoveFromCartProvider";
+import SubTotalPriceProvider from "./SubTotalPriceProvider";
 
 function AppProviders({ children }) {
    return (
@@ -13,7 +14,9 @@ function AppProviders({ children }) {
             <FooterMenuIsOpenProvider>
                <ToggleMenuProvider>
                   <AddToCartProvider>
-                     <RemoveFromCartProvider>{children}</RemoveFromCartProvider>
+                     <RemoveFromCartProvider>
+                        <SubTotalPriceProvider>{children}</SubTotalPriceProvider>
+                     </RemoveFromCartProvider>
                   </AddToCartProvider>
                </ToggleMenuProvider>
             </FooterMenuIsOpenProvider>
